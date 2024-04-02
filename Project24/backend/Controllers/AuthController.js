@@ -102,7 +102,6 @@ module.exports.Login = async (req, res, next) => {
       expiryDate.setDate(expiryDate.getDate() + 7);
       res.cookie("token", token, { expires: expiryDate });
       const userData = { ...user.toObject(), password: undefined };
-
       res.status(200).json({ message: "User logged in successfully", success: true, user: userData });
   } catch (error) {
       console.error(error);

@@ -8,6 +8,9 @@ const {MONGO_URL,PORT}=process.env
 let {Login,userVerification}=require("./Controllers/AuthController.js")
 let {userRegistration}=require('./Controllers/Registration.js')
 let {getUserDataByType}=require('./Controllers/userController.js')
+let {registerAdmin}=require('./Controllers/AdminRegister.js')
+let {userRegistrationByAdmin}=require('./Controllers/Registration.js')
+let {getAdminRegisteredUsers}=require('./Controllers/AdminController.js')
 //mongo connection
 mongoose.connect(MONGO_URL,{dbName:'Admins'})
 .then(()=>console.log("db connection successfull"))
@@ -31,6 +34,9 @@ app.post("/login",Login)
 app.post("/",userVerification)
 app.post("/registerUser",userRegistration)
 app.get('/user-data', getUserDataByType);
+app.post('/registerAdmin',registerAdmin)
+app.post('/userRegistrationByAdmin',userRegistrationByAdmin)
+app.post('/getAdminRegisteredUsers',getAdminRegisteredUsers)
 
 
 

@@ -94,7 +94,30 @@ const userSchema = new mongoose.Schema({
     },
     alternatePhoneNumber: {
         type: String
+    },
+    cart: [{
+        itemName: {
+            type: String,
+            required: true
+        },
+        quantity: {
+            type: Number,
+            required: true
+        },
+        price: {
+            type: Number,
+            required: true
+        }
+    }],
+    productsPurchased: {
+        type: Array,
+        default: []
+    },
+    opinion:{
+        type:String,
+        default:""
     }
+
 });
 
 // Middleware to hash the password before saving
