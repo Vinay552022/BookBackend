@@ -38,7 +38,7 @@ app.post('/registerAdmin',registerAdmin)
 app.post('/userRegistrationByAdmin',userRegistrationByAdmin)
 app.post('/getAdminRegisteredUsers',getAdminRegisteredUsers)
 
-
+app.get("/", (req, res) => res.send("Express on Vercel"));
 
 
 
