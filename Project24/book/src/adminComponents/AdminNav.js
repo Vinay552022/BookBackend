@@ -62,6 +62,11 @@ export default function AdminNav(props) {
                   UsersRegisteredByMe
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link className="nav-link" to={"/BookStats"}>
+                  BookStats
+                </Link>
+              </li>
 
               <li className="nav-item">
                 <Link
