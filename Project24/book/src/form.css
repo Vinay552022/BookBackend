@@ -1,0 +1,26 @@
+.success-notification {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px; /* Adjust the width as needed */
+  padding: 10px;
+  background-color: #018749;
+  color: white;
+  text-align: center;
+  z-index: 9999;
+  border-radius: 20px; /* Adjust the border-radius to create a tablet shape */
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3); /* Add a shadow for depth */
+  animation: slideDown 0.5s ease;
+}
+
+@keyframes slideDown {
+  0% {
+    top: -50px;
+    opacity: 0;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+  }
+}

@@ -1,0 +1,41 @@
+/* index.css or App.css */
+
+
+  
+ 
+  
+  
+ 
+  .navbar {
+    position: relative;
+    z-index: 1; /* Ensure the navbar is above the overlay */
+  }
+  .offer-banner {
+    position: relative;
+    z-index: 1; /* Ensure the navbar is above the overlay */
+  }
+ 
+  .makeappear{
+    color: black;
+    z-index: 1;
+    position: relative;
+  }
+  /* Book.css */
+
+.integrated-btn {
+    background: transparent;
+    color: black;
+    border: 1px solid black;
+    padding: 10px 20px; /* Adjust padding for desired size */
+    margin: 5px; /* Adjust margin for spacing */
+    transition: background 0.3s ease, color 0.3s ease;
+    width: 150px; 
+    z-index: 1;
+    
+  }
+  
+  .integrated-btn:hover {
+    background: white;
+    color: black;
+  }
+  
