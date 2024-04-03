@@ -1,12 +1,15 @@
-const mongoose = require("mongoose");
-
+const mongoose = require('mongoose');
 const orderSchema = new mongoose.Schema({
-    user: {
+    email: {
+        type:String,
+        required:true
+    },
+    userType:{
         type:String,
         required:true
     },
     items: [{
-        itemName: {
+        bookId: {
             type: String,
             required: true
         },
@@ -18,6 +21,7 @@ const orderSchema = new mongoose.Schema({
             type: Number,
             required: true
         }
+        
     }],
     totalAmount: {
         type: Number,
@@ -37,9 +41,13 @@ const orderSchema = new mongoose.Schema({
     },
     deliveredAt:{
         type:Date
+    },
+    placedBy:{
+        type:String,
+        default:this.email
     }
 });
 
-const Order = mongoose.model("Order", orderSchema);
+const order = mongoose.model('order', orderSchema);
 
-module.exports = Order;
+module.exports = order;

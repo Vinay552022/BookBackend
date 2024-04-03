@@ -11,6 +11,12 @@ let {getUserDataByType}=require('./Controllers/userController.js')
 let {registerAdmin}=require('./Controllers/AdminRegister.js')
 let {userRegistrationByAdmin}=require('./Controllers/Registration.js')
 let {getAdminRegisteredUsers}=require('./Controllers/AdminController.js')
+let {getBooks}=require('./Controllers/AdminController.js')
+
+let {addCartController}=require('./Controllers/addCartController.js')
+let {deleteCartController}=require('./Controllers/deleteCartController.js');
+const { getCartController } = require('./Controllers/getCartController.js');
+const { placeOrderController } = require('./Controllers/placeOrderController.js')
 //mongo connection
 mongoose.connect(MONGO_URL,{dbName:'Admins'})
 .then(()=>console.log("db connection successfull"))
@@ -22,7 +28,7 @@ app.use(
   method:["get","post"],
   credentials:true
 }
-));
+))
 app.use(cookieParser())
 app.use(express.json())
 
@@ -39,6 +45,11 @@ app.post('/userRegistrationByAdmin',userRegistrationByAdmin)
 app.post('/getAdminRegisteredUsers',getAdminRegisteredUsers)
 
 app.get("/", (req, res) => res.send("Express on Vercel"));
+app.get("/getBooks",getBooks)
 
 
+app.post('/placeOrder',placeOrderController)
+app.get(`/getCart/:email/:userType`,getCartController); 
+app.put(`/add_to_cart/:bookId`,addCartController)
+app.delete(`/delete_cart/:email/:userType/:bookId`,deleteCartController)
 

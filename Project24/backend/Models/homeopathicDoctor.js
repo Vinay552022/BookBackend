@@ -96,23 +96,15 @@ const userSchema = new mongoose.Schema({
         type: String
     },
     cart: [{
-        itemName: {
+        bookId: {
             type: String,
             required: true
         },
         quantity: {
             type: Number,
             required: true
-        },
-        price: {
-            type: Number,
-            required: true
         }
     }],
-    productsPurchased: {
-        type: Array,
-        default: []
-    },
     opinion:{
         type:String,
         default:""
