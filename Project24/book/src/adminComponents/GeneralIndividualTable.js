@@ -44,8 +44,8 @@ export default function GeneralIndividualTable(props) {
                 sortingFn: 'alphanumeric'
             },
             {
-                accessorKey: "specialty",
-                header: "Specialty",
+                accessorKey: "speciality",
+                header: "Speciality",
                 sortingFn: 'alphanumeric',
                 Cell: (e) => {
                     if (e.cell.row.original.qualification === "MD") {

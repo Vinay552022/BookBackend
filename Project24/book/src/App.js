@@ -35,6 +35,7 @@ function App() {
   const [cookies, removeCookie] = useCookies([])
   const [userData, setUserData] = useState({})
   const [data, setData] = useState({})
+  const [datas, setDatas] = useState({})
   const [filterData, setFilterData] = useState([])
   const [booksData,setBooksData]=useState([])
   //nishanth
@@ -79,7 +80,7 @@ function App() {
       const getUserData = async () => {
         try {
           const { data } = await axios.get('http://localhost:4000/user-data');
-          setData(data);
+          setDatas(data);
 
           //nishanth
           const response = await axios.get(`http://localhost:4000/getCart/${userData.email}/${userData.userType}`);
@@ -158,14 +159,15 @@ function App() {
 
 
     return (
-      Object.keys(data).length != 0 &&
+      
+      Object.keys(datas).length != 0 &&
       <>
         <Router>
           <AdminNav LogOut={LogOut} />
           <Routes>
-            <Route path='/' exact element={<BHMSTable data={Object.values(data.BHMSstudent)} />}></Route>
-            <Route path='/HomeopathicDoctor' element={<HomeopathicDoctor data={Object.values(data.HomeopathicDoctor)} />}></Route>
-            <Route path='/Practitioners' element={<GeneralIndividualTable data={Object.values(data.GeneralIndividual)} />}></Route>
+            <Route path='/' exact element={<BHMSTable data={Object.values(datas.BHMSstudent)} />}></Route>
+            <Route path='/HomeopathicDoctor' element={<HomeopathicDoctor data={Object.values(datas.HomeopathicDoctor)} />}></Route>
+            <Route path='/Practitioners' element={<GeneralIndividualTable data={Object.values(datas.GeneralIndividual)} />}></Route>
             <Route path='/RegisterAdmin' element={<RegiserAdmin userData={userData} />} />
             <Route path='/RegisterUsers' element={<RegisterUsers userData={userData} />} />
             <Route path='/UsersRegisteredByMe' element={<UsersRegisteredByMe filterData={filterData}/>}/>

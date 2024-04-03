@@ -59,14 +59,15 @@ const SelectedBook = () => {
         console.log(c);
         const p=cart.length;
         setCartIndex(p);
-
+        setCart(c);
       }
       else{
-
         updatedUserData.cart[cartIndex].quantity=count;
-        
+        const f=[...cart];
+        cart[cartIndex].quantity=count;
+        setCart(f);
       }
-      setCart(c);
+      
       setUserData(updatedUserData);
       console.log(response);
       toast.success(e.target.value, {

@@ -44,10 +44,11 @@ export default function HomeopathicDoctorTable(props) {
                 sortingFn: 'alphanumeric'
             },
             {
-                accessorKey: "specialty",
-                header: "Specialty",
+                accessorKey: "speciality",
+                header: "Speciality",
                 sortingFn: 'alphanumeric',
                 Cell: (e) => {
+                    console.log(e,"lol")
                     if (e.cell.row.original.qualification === "MD") {
                         return e.renderedCellValue || "None";
                     } else {

@@ -7,7 +7,7 @@ import './Dashboard.css';
 import axios from 'axios';
 
 const PlaceOrder = () => {
-    const { userData, setUserData,orders,setOrders } = useUser(); 
+    const { userData, setUserData,orders,setOrders,cart,setCart } = useUser(); 
     const [stringAddress,setStringAddress]= useState(`${userData.currentAddress.lane1} ,${userData.currentAddress.lane2} , ${userData.currentAddress.district} , ${userData.currentAddress.state} , ${userData.currentAddress.pincode}`);
     const location = useLocation();
     const orderData = location.state.orderData;
@@ -54,6 +54,10 @@ const PlaceOrder = () => {
           })
           console.log(arr);
           setOrders(arr);
+          setCart([]);
+          const k={...userData};
+          k.cart=[];
+          setUserData(k);
         } catch (error) {
           console.error('Error:', error);
         }
