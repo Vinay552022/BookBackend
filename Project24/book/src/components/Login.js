@@ -95,7 +95,7 @@ export default function Login(props) {
             Forgot your password?
           </a>
         </p>
-        <hr className="my-4" />
+        
         {/* <p className="text-center">
           Don't have an account? <a href="#" className="text-primary">Sign Up</a>
         </p> */}

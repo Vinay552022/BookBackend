@@ -8,10 +8,10 @@ import { useUser } from '../App';
 
 const Dashboard = () => {
     const navigate = useNavigate();
-    const {data,setData} = useUser();
-    console.log(data,"he;llo");
+    const { data, setData } = useUser();
+    console.log(data, "he;llo");
     const handleBookClick = (card) => {
-        navigate('/SelectedBook', { state: { bookData: card} }); 
+        navigate('/SelectedBook', { state: { bookData: card } });
     };
 
     // useEffect(() => {
@@ -28,30 +28,35 @@ const Dashboard = () => {
     // }, []);
 
     return (
-        <div style={{backgroundImage: `url(${bg_img})`,
+        <div style={{
+            backgroundImage: `url(${bg_img})`,
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
             width: '100%',
-            height:'100vh'}}>
-            <div className="container">
+            height: '100vh'
+        }}>
+            <div className="container ">
                 <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3">
                     {data.map((card, index) => (
                         <div key={index} className="col mt-2 " onClick={() => handleBookClick(card)}>
-                        <div className="card card-hover shadow-lg" >
-                        <img src={Book_Cover2} className="card-img-top object-fit-scale     p-3" alt="..." />
-                        <div className="card-body">
-                            <h3 className="card-title text-center">{card.bookTitle}</h3>
-                            <div className='row'>
-                            <b className="col card-text">Author</b>
-                            <div className="col card-text">{card.author}</div>
+                            <div className="card card-hover shadow-lg p-4" >
+                                <img src={Book_Cover2} className=" object-fit-scale  p-3" alt="..." />
+                                <div className="card-body">
+                                    <h3 className="card-title text-center">{card.bookTitle}</h3>
+                                    <div className='row'>
+                                        <b className="col card-text">Author</b>
+                                        <div className="col card-text">{card.author}</div>
+                                    </div>
+                                    <div className='row'>
+                                        <b className="col card-text">Price</b>
+                                        <div className="col card-text "><b className="fs-5">{'\u20B9'}</b>{card.price}</div>
+                                    </div>
+                                    <div className='d-grid gap-2 col-6 mt-4 mx-auto'>
+                                        <button className='btn btn-dark ' onClick={() => handleBookClick(card)}>View</button>
+                                    </div>
+                                </div>
                             </div>
-                            <div className='row'>
-                            <b className="col card-text">Price</b>
-                            <div className="col card-text "><b className="fs-5">{'\u20B9'}</b>{card.price}</div>
-                            </div>
-                        </div>
-                        </div>
                         </div>
                     ))}
                 </div>

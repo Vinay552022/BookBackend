@@ -12,11 +12,11 @@ import { useUser } from '../App';
 const SelectedBook = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { userData, setUserData,cart,setCart } = useUser(); 
+  const { userData, setUserData, cart, setCart } = useUser();
   const bookData = location.state.bookData;
   const [count, setCount] = useState(0);
   const [hoveredImage, setHoveredImage] = useState(null);
-  const [cartIndex,setCartIndex]=useState(-1);
+  const [cartIndex, setCartIndex] = useState(-1);
   function scrollToSection() {
     const section = document.getElementById('sectionId'); // Replace 'sectionId' with the ID of the section you want to scroll to
     if (section) {
@@ -47,27 +47,27 @@ const SelectedBook = () => {
         email,
         count,
       });
-      const updatedUserData={...userData};
-      var c=[...cart];
-      if(cartIndex===-1){
+      const updatedUserData = { ...userData };
+      var c = [...cart];
+      if (cartIndex === -1) {
         updatedUserData.cart.push({
-          bookId:bookData.bookId,
-          quantity:count
+          bookId: bookData.bookId,
+          quantity: count
         })
-        bookData.quantity=count;
+        bookData.quantity = count;
         c.push(bookData);
         console.log(c);
-        const p=cart.length;
+        const p = cart.length;
         setCartIndex(p);
         setCart(c);
       }
-      else{
-        updatedUserData.cart[cartIndex].quantity=count;
-        const f=[...cart];
-        cart[cartIndex].quantity=count;
+      else {
+        updatedUserData.cart[cartIndex].quantity = count;
+        const f = [...cart];
+        cart[cartIndex].quantity = count;
         setCart(f);
       }
-      
+
       setUserData(updatedUserData);
       console.log(response);
       toast.success(e.target.value, {
@@ -84,13 +84,13 @@ const SelectedBook = () => {
     navigate('/cart');
   };
 
-  const buyNow=async()=>{
+  const buyNow = async () => {
     add_to_cart();
-    bookData.quantity=count;
-    const d=[bookData]
+    bookData.quantity = count;
+    const d = [bookData]
     console.log(d)
 
-    navigate('/placeOrder', { state: { orderData:d,t:count*bookData.price} }); 
+    navigate('/placeOrder', { state: { orderData: d, t: count * bookData.price } });
   }
 
   const incrementCount = () => {
@@ -119,7 +119,7 @@ const SelectedBook = () => {
               <img
                 src={Book_Cover1}
                 className={`img-thumbnail float-end rounded-start ${hoveredImage === Book_Cover1 ? ' border-primary' : ''}`}
-                alt="Book Cover 1" style={{"maxHeight":"70px"}}
+                alt="Book Cover 1" style={{ "maxHeight": "70px" }}
                 onMouseEnter={() => handleImageHover(Book_Cover1)}
               />
             </div>
@@ -127,7 +127,7 @@ const SelectedBook = () => {
               <img
                 src={Book_Cover2}
                 className={`img-thumbnail justify-content-center rounded-start ${hoveredImage === Book_Cover2 ? 'border border-primary' : ''}`}
-                alt="Book Cover 2" style={{"maxHeight":"70px"}}
+                alt="Book Cover 2" style={{ "maxHeight": "70px" }}
                 onMouseEnter={() => handleImageHover(Book_Cover2)}
               />
             </div>
@@ -135,7 +135,7 @@ const SelectedBook = () => {
               <img
                 src={Book_Cover3}
                 className={`img-thumbnail float-start rounded-start ${hoveredImage === Book_Cover3 ? 'border border-primary' : ''}`}
-                alt="Book Cover 3" style={{"maxHeight":"70px"}}
+                alt="Book Cover 3" style={{ "maxHeight": "70px" }}
                 onMouseEnter={() => handleImageHover(Book_Cover3)}
               />
             </div>
@@ -151,90 +151,90 @@ const SelectedBook = () => {
           </div>
           <div className="d-flex align-items-center mb-3">
             <div className="me-2 fs-5">Quantity:</div>
-            <button className="btn border-danger me-2" onClick={decrementCount}>-</button>
+            <button className="btn border-dark me-2" onClick={decrementCount}>-</button>
             <span className="display mx-2">{count}</span>
-            <button className="btn btn-danger" onClick={incrementCount}>+</button>
+            <button className="btn btn-dark" onClick={incrementCount}>+</button>
           </div>
           <div className="row  mb-3">
             <div className='col-6 '>
-              {cartIndex===-1 && (
-                  <button className="btn btn-danger px-5 " value="Item added to cart successfully" onClick={add_to_cart}>Add to Cart</button>
-            )}
-              {cartIndex!=-1 && userData.cart[cartIndex].quantity === count && (
-                <button className="btn btn-danger px-5 " onClick={goToCart}>Go to Cart</button>
+              {cartIndex === -1 && (
+                <button className="btn btn-dark px-5 " value="Item added to cart successfully" onClick={add_to_cart}>Add to Cart</button>
               )}
-              {cartIndex!=-1 && userData.cart[cartIndex].quantity !== count && (
-                <button className="btn btn-danger px-5 " value="Cart updated successfully" onClick={add_to_cart}>Update Cart</button>
+              {cartIndex != -1 && userData.cart[cartIndex].quantity === count && (
+                <button className="btn btn-dark px-5 " onClick={goToCart}>Go to Cart</button>
+              )}
+              {cartIndex != -1 && userData.cart[cartIndex].quantity !== count && (
+                <button className="btn btn-dark px-5 " value="Cart updated successfully" onClick={add_to_cart}>Update Cart</button>
               )}
             </div>
             <div className='col-6'>
-              <button className="btn border-danger px-5 " onClick={buyNow}>Buy now</button>
+              <button className="btn border-dark px-5 " onClick={buyNow}>Buy now</button>
             </div>
           </div>
           <div>
-            <hr/>
+            <hr />
             <div className="truncate-multiline" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
               {bookData.description}
             </div>
             <button className="btn text-decoration-underline text-primary" onClick={scrollToSection}>Read More</button>
-            <hr/>
-            <div id="carouselExample" className="carousel slide border border-2" style={{"height":"80px"}}>
-      <div className="carousel-inner">
-        <div className="carousel-item active">
-          <div className="row">
-          <div className="col text-center">
-            <h5>ISBN 13   <i class="fa-solid fa-book"></i></h5>
-            <div className="item">{bookData.bookId}</div>
-          </div>
-          <div className="col text-center">
-            <h5>Pages  <i class="fa-regular fa-file"></i>
+            <hr />
+            <div id="carouselExample" className="carousel slide border border-2" style={{ "height": "80px" }}>
+              <div className="carousel-inner p-3">
+                <div className="carousel-item active p-1">
+                  <div className="row">
+                    <div className="col text-center">
+                      <h5>ISBN 13   <i class="fa-solid fa-book"></i></h5>
+                      <div className="item">{bookData.bookId}</div>
+                    </div>
+                    <div className="col text-center">
+                      <h5>Pages  <i class="fa-regular fa-file"></i>
 
-            </h5>
-            <div className="item">{bookData.numPages}</div>
-          </div>
-          <div className="col text-center">
-            <h5>Weight   <i class="fa-solid fa-weight-scale"></i></h5>
-            <div className="item">{bookData.weight}</div>
-          </div>
-          
-        </div>
-        </div>
-        <div className="carousel-item">
-          <div className="row">
-          <div className="col text-center">
-            <h5 className=''>Dimensions <i class="fa-brands fa-unity"></i></h5>
-            <div className="item">{bookData.dimensions}</div>
-          </div>
-          <div className="col text-center">
-            <h5>Publication Date   <i class="fa-regular fa-calendar"></i></h5>
+                      </h5>
+                      <div className="item">{bookData.numPages}</div>
+                    </div>
+                    <div className="col text-center">
+                      <h5>Weight   <i class="fa-solid fa-weight-scale"></i></h5>
+                      <div className="item">{bookData.weight}</div>
+                    </div>
 
-            <div className="item">{bookData.publicationDate}</div>
+                  </div>
+                </div>
+                <div className="carousel-item p-1">
+                  <div className="row">
+                    <div className="col text-center">
+                      <h5 className=''>Dimensions <i class="fa-brands fa-unity"></i></h5>
+                      <div className="item">{bookData.dimensions}</div>
+                    </div>
+                    <div className="col text-center">
+                      <h5>Publication Date   <i class="fa-regular fa-calendar"></i></h5>
+
+                      <div className="item">{bookData.publicationDate}</div>
+                    </div>
+
+                    <div className="col text-center">
+                      <div className="item">See more</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                <span className="carousel-control-prev-icon bg-dark" aria-hidden="true" ></span>
+                <span className="visually-hidden">Previous</span>
+              </button>
+              <button className="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                <span className="carousel-control-next-icon bg-dark" aria-hidden="true"></span>
+                <span className="visually-hidden">Next</span>
+              </button>
+            </div>
           </div>
-          
-          <div className="col text-center">
-            <div className="item">See more</div>
-          </div>
-        </div>
         </div>
       </div>
-      <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-        <span className="carousel-control-prev-icon bg-dark" aria-hidden="true" ></span>
-        <span className="visually-hidden">Previous</span>
-      </button>
-      <button className="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-        <span className="carousel-control-next-icon bg-dark" aria-hidden="true"></span>
-        <span className="visually-hidden">Next</span>
-      </button>
-    </div>
-          </div>
-        </div>
-      </div>
-      <hr/>
+      <hr />
       <div id='sectionId'>
         <h3>About book</h3>
         {bookData.description}
       </div>
-      <ToastContainer position="bottom-center"/>
+      <ToastContainer position="bottom-center" />
     </div>
   );
 };

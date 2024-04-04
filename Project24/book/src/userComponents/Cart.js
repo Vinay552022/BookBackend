@@ -110,19 +110,19 @@ export default function Cart() {
   }, []); // Fetch data when userData changes
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
       <Container className='mt-4 flex-grow-1'>
         {(cart.length>0)?
           <div>
 
-            <h2>Cart</h2>
+            <h1 className='text-center'>Cart</h1>
             {cart.map((card, index) => (
-              <div key={index} className="card mb-3 " >
+              <div key={index} className="card mb-3 mt-4 border-0 shadow" >
                 <div className="row g-0">
                   <div className="col-md-4">
-                    <img src={Book_Cover2} className=" card-img-top rounded-start" alt="..." />
+                    <img src={Book_Cover2} className="img-fluid object-fit-scale p-3" alt="..." />
                   </div>
-                  <div className="col-md-8">
+                  <div className="col-md-8 mt-5">
                     <div className="card-body">
                       <h3 className="card-title">{card.bookTitle}</h3>
                       <div className='card-text fs-5'>{card.author}</div>
@@ -135,13 +135,13 @@ export default function Cart() {
                         </div>
                         {updateIndices.includes(index) && (
                           <div className="col-md-3">
-                            <button className="btn btn-outline-success px-3" onClick={() => handleUpdate(index)}>Update</button>
+                            <button className="btn btn-outline-info px-3" onClick={() => handleUpdate(index)}>Update</button>
                           </div>
                         )}
                       </div>
                       <div className="row mb-3">
                         <div className='col-4'>
-                          <button className="btn btn-danger px-4 " onClick={() => removeObject(card, index)}>Remove</button>
+                          <button className="btn btn-dark px-4 " onClick={() => removeObject(card, index)}>Remove</button>
                         </div>
                         <div className='col-4'>
                           <button className="btn btn-outline-secondary px-3" onClick={(e)=>buyNow(card)}>Buy now</button>
@@ -160,13 +160,13 @@ export default function Cart() {
         }
       </Container>
 
-      <div className='sticky-bottom bg-light py-2'>
+      <div className=' container mt-4 bg-light py-2'>
         <Container>
           <div className='row'>
             <div className='col-sm-5 col-md-3 text-center'><b>Total</b> ( {cart.length} items )</div>
             <div className='col-sm-3 col-md-3 text-center'><b  className=""><span className='fs-4'>{'\u20B9'}</span>{total}</b></div>
             <div className='col-sm-4 col-md-6 text-center'>
-              <Button variant='warning' className='px-5' disabled={!(cart.length>0)} onClick={placeOrder}>Place order</Button>
+              <Button variant='dark' className='px-5' disabled={!(cart.length>0)} onClick={placeOrder}>Place order</Button>
             </div>
           </div>
         </Container>
