@@ -100,7 +100,11 @@ module.exports.Login = async (req, res, next) => {
 
       const expiryDate = new Date();
       expiryDate.setDate(expiryDate.getDate() + 7);
-      res.cookie("token", token, { expires: expiryDate });
+      res.cookie("token", token, { 
+        expires: expiryDate,
+        domain: 'https://bookbackend-1.onrender.com', // Adjust this to your domain
+        path: '/', // Adjust this to the path where the cookie should be accessible
+      });
       const userData = { ...user.toObject(), password: undefined };
       res.status(200).json({ message: "User logged in successfully", success: true, user: userData });
   } catch (error) {
