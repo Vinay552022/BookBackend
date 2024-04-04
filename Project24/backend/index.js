@@ -24,7 +24,7 @@ mongoose.connect(MONGO_URL,{dbName:'Admins'})
 
 app.use(
   cors({
-  origin:["http://localhost:3000"],
+  origin:["https://bookbackend-1.onrender.com/"],
   method:["get","post"],
   credentials:true
 }
