@@ -102,7 +102,7 @@ module.exports.Login = async (req, res, next) => {
       expiryDate.setDate(expiryDate.getDate() + 7);
       res.cookie("token", token, { 
         expires: expiryDate,
-        domain: 'https://bookbackend-1.onrender.com', // Adjust this to your domain
+        domain: 'bookbackend-1.onrender.com', // Adjust this to your domain
         path: '/', // Adjust this to the path where the cookie should be accessible
       });
       const userData = { ...user.toObject(), password: undefined };
