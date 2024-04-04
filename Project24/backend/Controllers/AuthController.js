@@ -103,7 +103,9 @@ module.exports.Login = async (req, res, next) => {
       res.cookie("token", token, { 
         expires: expiryDate,
         domain: 'bookbackend-1.onrender.com', // Adjust this to your domain
-        path: '/', // Adjust this to the path where the cookie should be accessible
+        path: '/',
+        sameSite: 'None', // Adjust as needed ('Strict', 'Lax', or 'None')
+        secure: true  // Adjust this to the path where the cookie should be accessible
       });
       const userData = { ...user.toObject(), password: undefined };
       res.status(200).json({ message: "User logged in successfully", success: true, user: userData });
