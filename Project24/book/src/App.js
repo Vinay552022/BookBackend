@@ -27,6 +27,12 @@ import UserNavbar from './userComponents/UserNavbar';
 import PlaceOrder from './userComponents/PlaceOrder';
 import Orders from './userComponents/Orders';
 import BookStats from './adminComponents/BookStats';
+import Footer from './homeCompnents/Footer';
+import ReturnPolicy from './homeCompnents/ReturnPolicy';
+import RefundPolicy from './homeCompnents/RefundPolicy';
+import TermsofService from './homeCompnents/TermsofService';
+import Privacypolicy from './homeCompnents/Privacypolicy';
+import ShippingAndDelivery from './homeCompnents/ShippingPolicy';
 //nishanth
 const UserContext = createContext();
 export const useUser = () => useContext(UserContext);
@@ -52,7 +58,7 @@ function App() {
         console.log("p")
         try {
           const response = await axios.post(
-            "http://localhost:4000",
+            "https://bookbackend-1.onrender.com/",
             {},
             { withCredentials: true }
           );
@@ -73,18 +79,18 @@ function App() {
 
   }, [])
   function LogOut() {
-    removeCookie("token")
+    removeCookie("token", { domain: ".bookbackend-1.onrender.com", path: "/" });
     setUserData({})
   }
   useEffect(() => {
     if (userData.userType === "Admin") {
       const getUserData = async () => {
         try {
-          const { data } = await axios.get('http://localhost:4000/user-data');
+          const { data } = await axios.get('https://bookbackend-1.onrender.com/user-data');
           setDatas(data);
 
           //nishanth
-          const response = await axios.get(`http://localhost:4000/getCart/${userData.email}/${userData.userType}`);
+          const response = await axios.get(`https://bookbackend-1.onrender.com/getCart/${userData.email}/${userData.userType}`);
           console.log(response.data);
           setBooks(response.data.allBooks);
           //nishanth
@@ -110,7 +116,7 @@ function App() {
       getUserData();
       const getBooks=async()=>{
         try {
-          const booksData  = await axios.get('http://localhost:4000/getBooks');
+          const booksData  = await axios.get('https://bookbackend-1.onrender.com/getBooks');
           setBooksData(booksData)
         } catch (error) {
           console.error("Error fetching user data:", error);
@@ -122,7 +128,7 @@ function App() {
       const fetchBookData = async () => {
         try {
           console.log(userData);
-          const response = await axios.get(`http://localhost:4000/getCart/${userData.email}/${userData.userType}`);
+          const response = await axios.get(`https://bookbackend-1.onrender.com/getCart/${userData.email}/${userData.userType}`);
             // const response = await axios.get('http://localhost:4000/getbooks');
             console.log(response.data);
             setData(response.data.allBooks);
@@ -142,7 +148,7 @@ function App() {
       <>
         <Router>
           <NavBar />
-          <OfferBanner />
+          {/* <OfferBanner /> */}
           <Routes>
             <Route path='/' exact element={<Homepagevideo />}></Route>
             <Route path='/Form' element={<UserForm />}></Route>
@@ -150,15 +156,19 @@ function App() {
             <Route path='/Content' element={<Content />} />
             <Route path='/Summary' element={<Summary />} />
             <Route path='/Author' element={<Author />} />
+            {/* <Route path='/ReturnPolicy' element={<ReturnPolicy/>}/> */}
+            <Route path='/RefundPolicy' element={<RefundPolicy/>}/>
+            <Route path='/TermsOfService' element={<TermsofService/>}/>
+            <Route path='/PrivacyPolicy' element={<Privacypolicy/>}/>
+            <Route path='/ShippingPolicy' element={<ShippingAndDelivery/>}/>
+
           </Routes>
+          <Footer/>
         </Router>
       </>
     );
   }
   else if (userData.userType == "Admin") {
-
-
-
     return (
       
       Object.keys(datas).length != 0 &&
@@ -175,6 +185,7 @@ function App() {
             <Route path='/BuyBooks' element={<BuyBooks userData={userData} booksData={booksData}/>}/>
             <Route path='/BookStats' element={<BookStats  books={books} setBooks={setBooks}/>}/>
           </Routes>
+          <Footer/>
         </Router>
       </>
     )
@@ -193,8 +204,13 @@ function App() {
               <Route path='/cart' element={<Cart/>}/>
               <Route path='/placeOrder' element={<PlaceOrder/>}/>
               <Route path='/orders' element={<Orders/>}/>
-
+              {/* <Route path='/ReturnPolicy' element={<ReturnPolicy/>}/> */}
+            <Route path='/RefundPolicy' element={<RefundPolicy/>}/>
+            <Route path='/TermsOfService' element={<TermsofService/>}/>
+            <Route path='/PrivacyPolicy' element={<Privacypolicy/>}/>
+            <Route path='/ShippingPolicy' element={<ShippingAndDelivery/>}/>
             </Routes>
+            <Footer/>
           </Router>
           </UserContext.Provider>
         </>

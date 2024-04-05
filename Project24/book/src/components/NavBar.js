@@ -6,7 +6,7 @@ export default function NavBar() {
 
         <div className="container-fluid">
           <Link className="navbar-brand" to={'/'}>
-            JAVA
+            HH
           </Link>
           <button
             className="navbar-toggler "
@@ -55,9 +55,9 @@ export default function NavBar() {
             
             
           </div>
-          <div className="d-flex ms-auto">
+          {/* <div className="d-flex ms-auto">
               <button className="btn  btn-outline-light" style={{width:"150px"}}>Buy</button>
-            </div>
+            </div> */}
         </div>
       </nav>
     </div>

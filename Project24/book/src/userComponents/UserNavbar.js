@@ -10,7 +10,7 @@ export default function UserNavbar(props) {
     <div>
       <nav className="navbar border-bottom border-body navbar-expand-lg" style={{ backgroundColor: "black" }}data-bs-theme="dark">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">JAVA</a>
+          <a className="navbar-brand" href="#">HH</a>
           <button
             className="navbar-toggler"
             type="button"
@@ -32,6 +32,17 @@ export default function UserNavbar(props) {
                   Home
                 </Link>
               </li>
+              
+              <li className="nav-item ">
+                <Link className="nav-link align-items-center" to={"/cart"}>
+                  <FaCartShopping size={24}/><span class="badge badge-light">{userData.cart.length}</span>
+                </Link>
+              </li>
+              <li className="nav-item ">
+                <Link className="nav-link align-items-center" to={"/orders"}>
+                  Orders
+                </Link>
+              </li>
               <li className="nav-item">
                 <Link
                   className="nav-link"
@@ -44,24 +55,15 @@ export default function UserNavbar(props) {
                   Logout
                 </Link>
               </li>
-              <li className="nav-item ">
-                <Link className="nav-link align-items-center" to={"/cart"}>
-                  <FaCartShopping size={24}/><span class="badge badge-light">{userData.cart.length}</span>
-                </Link>
-              </li>
-              <li className="nav-item ">
-                <Link className="nav-link align-items-center" to={"/orders"}>
-                  Orders
-                </Link>
-              </li>
             </ul>
-            <div className="d-flex ms-auto">
+            
+            {/* <div className="d-flex ms-auto">
               <button
                 className="btn  btn-outline-light"
                 style={{ width: "150px" }}>
                 Buy
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </nav>

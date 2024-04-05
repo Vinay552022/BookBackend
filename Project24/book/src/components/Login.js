@@ -22,7 +22,7 @@ export default function Login(props) {
     // Reset password error state if a valid password is entered
     setPasswordError(false);
     try {
-      const { data } = await axios.post('http://localhost:4000/login', login, {
+      const { data } = await axios.post('https://bookbackend-1.onrender.com/login', login, {
         withCredentials: true,
       });
 
@@ -90,11 +90,11 @@ export default function Login(props) {
         <button type="submit" className="btn btn-dark btn-block">
           Sign in
         </button>
-        <p className="text-center mt-3">
+        {/* <p className="text-center mt-3">
           <a href="#" className="text-muted">
             Forgot your password?
           </a>
-        </p>
+        </p> */}
         
         {/* <p className="text-center">
           Don't have an account? <a href="#" className="text-primary">Sign Up</a>

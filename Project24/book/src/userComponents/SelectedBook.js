@@ -42,7 +42,7 @@ const SelectedBook = () => {
     const bookId = bookData.bookId;
 
     try {
-      const response = await axios.put(`http://localhost:4000/add_to_cart/${bookId}`, {
+      const response = await axios.put(`https://bookbackend-1.onrender.com/add_to_cart/${bookId}`, {
         userType,
         email,
         count,
