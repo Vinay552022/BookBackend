@@ -29,7 +29,8 @@ const corsOptions = {
         "Content-Type",
         "Authorization",
         "Access-Control-Allow-Methods",
-        "Access-Control-Request-Headers"
+        "Access-Control-Request-Headers",
+        "Access-Control-Allow-Origin"
     ],
     credentials: true, // Allow sending credentials (e.g., cookies) with the request
     enablePreflight: true // Enable preflight requests (OPTIONS) for CORS
