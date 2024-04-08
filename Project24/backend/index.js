@@ -24,7 +24,7 @@ mongoose.connect(MONGO_URL,{dbName:'Admins'})
 
 app.use(
   cors({
-  origin:["https://www.haelanhomeopathy.com/"],
+  origin:["https://www.haelanhomeopathy.com"],
   method:["get","post","delete"],
   credentials:true
 }
