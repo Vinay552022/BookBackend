@@ -22,13 +22,22 @@ mongoose.connect(MONGO_URL,{dbName:'Admins'})
 .then(()=>console.log("db connection successfull"))
 .catch((err)=>console.log(err.message))
 
-app.use(
-  cors({
-  origin:["https://www.haelanhomeopathy.com"],
-  method:["get","post","delete"],
-  credentials:true
-}
-))
+const corsOptions = {
+    origin: ["https://www.haelanhomeopathy.com"], // Allow requests from this origin
+    method: ["get", "post", "delete"], // Allow these HTTP methods
+    allowedHeaders: [ // Allow these headers in the request
+        "Content-Type",
+        "Authorization",
+        "Access-Control-Allow-Methods",
+        "Access-Control-Request-Headers"
+    ],
+    credentials: true, // Allow sending credentials (e.g., cookies) with the request
+    enablePreflight: true // Enable preflight requests (OPTIONS) for CORS
+};
+
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions))
 app.use(cookieParser())
 app.use(express.json())
 
