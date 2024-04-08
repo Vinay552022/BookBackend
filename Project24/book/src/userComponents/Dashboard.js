@@ -28,14 +28,7 @@ const Dashboard = () => {
     // }, []);
 
     return (
-        <div style={{
-            backgroundImage: `url(${bg_img})`,
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center',
-            width: '100%',
-            height: '100vh'
-        }}>
+        <div >
             <div className="container ">
                 <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3">
                     {data.map((card, index) => (

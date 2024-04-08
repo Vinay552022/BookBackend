@@ -1,13 +1,12 @@
 import { Link } from "react-router-dom";
+import logo from '../components/Images/logo.png'
 export default function NavBar() {
   return (
     <div>
-      <nav className="navbar border-bottom border-body navbar-expand-lg" style={{ backgroundColor: "black" }} data-bs-theme="dark">
+      <nav className="navbar border-bottom border-body navbar-expand-lg" data-bs-theme="white">
 
         <div className="container-fluid">
-          <Link className="navbar-brand" to={'/'}>
-            JAVA
-          </Link>
+        <a className="navbar-brand" href="#"><img  className="img-fluid"  style={{ width: "30px" }} src={logo}/></a>
           <button
             className="navbar-toggler "
             type="button"
@@ -26,11 +25,11 @@ export default function NavBar() {
                   Home
                 </Link>
               </li>
-              {/* <li className="nav-item">
+              <li className="nav-item">
                 <Link className="nav-link" to={"/Form"}>
-                  Form
+                  Register
                 </Link>
-              </li> */}
+              </li>
               {/* <li className="nav-item">
                 <a className="nav-link" href="#summary">
                   Summary
@@ -55,13 +54,11 @@ export default function NavBar() {
             
             
           </div>
-          <div className="d-flex ms-auto">
+          {/* <div className="d-flex ms-auto">
               <button className="btn  btn-outline-light" style={{width:"150px"}}>Buy</button>
-            </div>
+            </div> */}
         </div>
       </nav>
     </div>
   );
 }
-
-  

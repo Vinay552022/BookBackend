@@ -1,15 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Button } from 'react-bootstrap';
+import React from 'react';
+import { Container } from 'react-bootstrap';
 import Book_Cover2 from '../components/Images/Book_Cover2.jpg';
 import './Dashboard.css';
 import { useUser } from '../App';
-import { useNavigate } from 'react-router-dom';
-
 export default function Orders() {
-  const { orders, setOrders } = useUser();
-  const { userData, setUserData } = useUser();
+  const { orders } = useUser();
   console.log(orders);
-  const navigate = useNavigate();
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
@@ -33,7 +29,7 @@ export default function Orders() {
                       <div className='card-text'><b className="fs-5">{'\u20B9'}</b> {item.price}</div>
                       <div className='card-text'>{item.bookId}</div>
                       <div className="mb-3 row">
-                        <label htmlFor="staticEmail" className="col-md-2 form-label mt-1"><h5>Quantity</h5></label>
+                        <label htmlFor="staticEmail" className="col-md-3 form-label mt-1"><h5>Quantity</h5></label>
                         <div className="col-md-3">
                           <input type="number" min={1} className="form-control" value={item.quantity} />
                         </div>
@@ -43,14 +39,14 @@ export default function Orders() {
                 </div>
               </div>
             ))}
-            <div className='container ps-5'>
+            <div className=''>
             <div className='mt-3'>Total Amount : {'\u20B9'}{order.totalAmount}</div>
             <div>Status  : <span className={order.status === 'delivered' ? 'text-success' : (order.status === 'pending' ? 'text-warning' : 'text-primary')}>{order.status}</span></div>
             <div className="mb-3 mt-3 row ">
-              <div className='col-6'>
-                <div>Created At : {order.createdAt}</div>
+              <div className='col-md-6 '>
+                Created At : {order.createdAt}
               </div>
-              <div className='col-5 text-end'>
+              <div className='col-md-5'>
                 Delivered At : <span className={order.deliveredAt ? 'text-success' : 'text-danger'}>{order.deliveredAt ? order.deliveredAt : "Not Delivered"}</span>
               </div>
             </div>

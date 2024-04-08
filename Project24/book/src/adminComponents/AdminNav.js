@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-
+import logo from '../components/Images/logo.png'
 export default function AdminNav(props) {
   const navigate = useNavigate();
   const { LogOut } = props;
@@ -8,13 +8,10 @@ export default function AdminNav(props) {
     <div>
       <nav
         className="navbar border-bottom border-body navbar-expand-lg"
-        style={{ backgroundColor: "black" }}
-        data-bs-theme="dark"
+        data-bs-theme="white"
       >
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
-            JAVA
-          </a>
+        <a className="navbar-brand" href="#"><img  className="img-fluid"  style={{ width: "30px" }} src={logo}/></a>
           <button
             className="navbar-toggler"
             type="button"

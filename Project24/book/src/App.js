@@ -142,7 +142,7 @@ function App() {
       <>
         <Router>
           <NavBar />
-          <OfferBanner />
+          {/* <OfferBanner /> */}
           <Routes>
             <Route path='/' exact element={<Homepagevideo />}></Route>
             <Route path='/Form' element={<UserForm />}></Route>

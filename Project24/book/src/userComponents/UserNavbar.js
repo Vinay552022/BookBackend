@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { FaCartShopping } from "react-icons/fa6";
+import logo from '../components/Images/logo.png'
 import { useUser } from '../App';
 export default function UserNavbar(props) {
   const navigate = useNavigate();
@@ -8,9 +9,9 @@ export default function UserNavbar(props) {
 
   return (
     <div>
-      <nav className="navbar border-bottom border-body navbar-expand-lg" style={{ backgroundColor: "black" }}data-bs-theme="dark">
+      <nav className="navbar border-bottom border-body navbar-expand-lg" data-bs-theme="white">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">JAVA</a>
+          <a className="navbar-brand" href="#"><img  className="img-fluid"  style={{ width: "30px" }} src={logo}/></a>
           <button
             className="navbar-toggler"
             type="button"
@@ -32,6 +33,17 @@ export default function UserNavbar(props) {
                   Home
                 </Link>
               </li>
+              
+              <li className="nav-item ">
+                <Link className="nav-link align-items-center" to={"/cart"}>
+                  <FaCartShopping size={24}/><span className="badge badge-black" style={{color:"black"}}>{userData.cart.length}</span>
+                </Link>
+              </li>
+              <li className="nav-item ">
+                <Link className="nav-link align-items-center" to={"/orders"}>
+                  Orders
+                </Link>
+              </li>
               <li className="nav-item">
                 <Link
                   className="nav-link"
@@ -44,24 +56,15 @@ export default function UserNavbar(props) {
                   Logout
                 </Link>
               </li>
-              <li className="nav-item ">
-                <Link className="nav-link align-items-center" to={"/cart"}>
-                  <FaCartShopping size={24}/><span class="badge badge-light">{userData.cart.length}</span>
-                </Link>
-              </li>
-              <li className="nav-item ">
-                <Link className="nav-link align-items-center" to={"/orders"}>
-                  Orders
-                </Link>
-              </li>
             </ul>
-            <div className="d-flex ms-auto">
+            
+            {/* <div className="d-flex ms-auto">
               <button
                 className="btn  btn-outline-light"
                 style={{ width: "150px" }}>
                 Buy
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </nav>

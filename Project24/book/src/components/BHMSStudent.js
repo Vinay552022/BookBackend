@@ -1,5 +1,6 @@
 import {React,useState,useEffect} from "react";
 import { Eye, EyeSlash } from "react-bootstrap-icons";
+import axios from 'axios';
 export default function BHMSStudent(props){
   const { setData } = props;
   const [selectedState, setSelectedState] = useState('');
@@ -8,6 +9,10 @@ export default function BHMSStudent(props){
   const [residentialDistrict, setResidentialDistrict] = useState('');
   const [sameAsCurrent, setSameAsCurrent] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [submitbuttonEnabled, setsubmitbuttonEnabled] = useState(false);
+  const [otp,setotp]=useState();
+  const [submitbuttondisplay,setsubmitbuttondisplay]=useState(false);
+
   const [formData, setFormData] = useState({
     userType:"BHMSstudent",
     name: "",
@@ -109,6 +114,36 @@ export default function BHMSStudent(props){
       }
     }));
   };
+
+  const otp_method = async() => {
+
+    try {
+      const email=formData.email;
+      const response = await axios.post("http://localhost:4000/send-otp", {
+        email,
+      });
+      setsubmitbuttonEnabled(true);
+    } catch (error) {
+      console.log("Failed to send OTP");
+    }
+    
+  };
+
+  const verify_otp=async()=>{
+    try {
+      const email=formData.email;
+      const userEnteredOTP=otp;
+      const response = await axios.post("http://localhost:4000/verify-otp", {
+        email,
+        userEnteredOTP
+      });
+
+      console.log(response)
+      setsubmitbuttondisplay(true);
+    } catch (error) {
+      console.log("Failed to send OTP");
+    }
+  }
 
   const handleSubmit = (e) => {
     setData(formData);
@@ -1055,9 +1090,27 @@ export default function BHMSStudent(props){
               <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">
                 Email
               </label>
-              <div className="col-sm-10">
+              <div className="col-sm-3">
                 <input type="email" className="form-control" name="email" value={formData.email}  id="inputEmail3" onChange={(e)=>handleChange(e)} required/>
               </div>
+              <div className="col-sm-2">
+                <button className="btn btn-info" onClick={otp_method}>Send otp</button>
+              </div>
+              {submitbuttonEnabled && (
+                <div className="col-sm-3"> 
+                  <div className="row">
+                  <label htmlFor="inputEmail3" className="col-sm-3 col-form-label">
+                      OTP
+                    </label>
+                    <div className="col-sm-6">
+                      <input type="text" value={otp} className="form-control" onChange={(e)=>setotp(e.target.value)} required/>
+                    </div>
+                    <div className="col-sm-3">
+                    <button className="btn btn-info" onClick={verify_otp}>verify</button>
+                    </div>
+                  </div>
+                </div>     
+                )}
             </div>
             <div className="row mb-3">
         <label htmlFor="inputPassword" className="col-sm-2 col-form-label">
@@ -1292,7 +1345,8 @@ export default function BHMSStudent(props){
                 />
               </div>
             </div>
-            <button type="submit" className="btn btn-dark mb-2" onClick={handleSubmit} >submit</button>
+            
+            <button type="submit" className="btn btn-dark mb-2" onClick={handleSubmit} disabled={!submitbuttondisplay}>submit</button>
           </div>
     )
 }

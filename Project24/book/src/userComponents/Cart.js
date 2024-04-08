@@ -8,28 +8,30 @@ import { useNavigate } from 'react-router-dom';
 import emptyCart from '../components/Images/emptyCart.avif';
 export default function Cart() {
   const {userData,setUserData,cart,setCart} = useUser();
-  console.log(cart);
+  const [tempCart, setTempCart] = useState([]);//changed
   const [total, setTotal] = useState(0);
   const [updateIndices, setUpdateIndices] = useState([]);
   const navigate = useNavigate();
   const changeQuantity = (e, index) => {
-    const updatedCart = [...cart];
-    updatedCart[index].quantity = parseInt(e.target.value, 10);
-    setCart(updatedCart);
+    const updatedTempCart = [...tempCart];
+    updatedTempCart[index] = parseInt(e.target.value, 10);
+    setTempCart(updatedTempCart);
     if (!updateIndices.includes(index)) {
       setUpdateIndices([...updateIndices, index]);
     }
   };
-  const handleBookClick = (card) => {
-    console.log(card);
-    navigate('/SelectedBook', { state: { bookData: card} }); 
-};
   const handleUpdate = async (index) => {
-    const item = cart[index];
+    var item = tempCart[index];
+    console.log(item);
+    if(!(item>1)){
+      const updatedTempCart = [...tempCart];
+      updatedTempCart[index] = 1;
+      setTempCart(updatedTempCart);
+    };//changed
     const userType = userData.userType;
     const email = userData.email;
-    const bookId = item.bookId;
-    const count = item.quantity;
+    const bookId = cart[index].bookId;
+    const count = item;
 
     try {
       const response = await axios.put(`http://localhost:4000/add_to_cart/${bookId}`, {
@@ -60,11 +62,6 @@ export default function Cart() {
   const placeOrder=()=>{
     navigate('/placeOrder', { state: { orderData: cart,t:total} }); 
   }
-  const buyNow=(card)=>{
-    const d=[card]
-    console.log(d)
-    navigate('/placeOrder', { state: { orderData: d,t:card.price} }); 
-  }
   const removeObject = async (card, index) => {
     try {
       const userType = userData.userType;
@@ -76,7 +73,11 @@ export default function Cart() {
       updatedCart.splice(index, 1);
       setTotal(total - item_price);
       setCart(updatedCart);
-
+      //changed
+      const updatedTempCart=[...tempCart];
+      updatedTempCart.splice(index,1);
+      setTempCart(updatedTempCart);
+      //changed
       // Update the userData in context
       const updatedUserData = { ...userData };
       updatedUserData.cart = updatedUserData.cart.filter(item => item.bookId !== card.bookId);
@@ -93,13 +94,12 @@ export default function Cart() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-      //   const userType = userData.userType;
-      //   const email = userData.email;
-      //   const response = await axios.get(`http://localhost:4000/getCart/${email}/${userType}`);
-        // console.log(response.data);
+        //changed
+        const initialTempCart = cart.map(item => (item.quantity));
+        setTempCart(initialTempCart);
+        //changed
         const cart_temp = cart
         const totalCost = calculateTotal(cart_temp);
-        // setCart(response.data.booksInCart);
         setTotal(totalCost);
 
       } catch (error) {
@@ -131,7 +131,7 @@ export default function Cart() {
                       <div className="mb-3 row">
                         <label htmlFor="staticEmail" className="col-md-2 form-label"><b>Quantity</b></label>
                         <div className="col-md-3">
-                          <input type="number" min={1} className="form-control" value={card.quantity} onChange={(e) => changeQuantity(e, index)} />
+                          <input type="number" min={1} className="form-control" value={tempCart[index]} onChange={(e) => changeQuantity(e, index)} />
                         </div>
                         {updateIndices.includes(index) && (
                           <div className="col-md-3">
@@ -143,9 +143,9 @@ export default function Cart() {
                         <div className='col-4'>
                           <button className="btn btn-dark px-4 " onClick={() => removeObject(card, index)}>Remove</button>
                         </div>
-                        <div className='col-4'>
+                        {/* <div className='col-4'>
                           <button className="btn btn-outline-secondary px-3" onClick={(e)=>buyNow(card)}>Buy now</button>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>
