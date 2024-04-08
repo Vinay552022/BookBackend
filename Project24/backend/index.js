@@ -24,7 +24,7 @@ mongoose.connect(MONGO_URL,{dbName:'Admins'})
 
 // Example CORS middleware for Express.js
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'https://www.haelanhomeopathy.com'); // Allow requests from any origin
+    res.setHeader('Access-Control-Allow-Origin', 'https://haelanhomeopathy.com'); // Allow requests from any origin
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.setHeader('Access-Control-Allow-Credentials', true);
