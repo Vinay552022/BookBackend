@@ -22,9 +22,10 @@ const { sendOtp, verifyOtp } = require('./Controllers/otpController.js');
 mongoose.connect(MONGO_URL,{dbName:'Admins'})
 .then(()=>console.log("db connection successfull"))
 .catch((err)=>console.log(err.message))
+const allowedOrigins = ['https://www.haelanhomeopathy.com', 'https://haelanhomeopathy.com']; // Add additional origins as needed
 
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', ['https://www.haelanhomeopathy.com','https://haelanhomeopathy.com']); // Allow requests from any origin
+  res.setHeader('Access-Control-Allow-Origin', allowedOrigins); // Allow requests from any origin
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.setHeader('Access-Control-Allow-Credentials', true);
