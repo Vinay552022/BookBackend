@@ -3,7 +3,7 @@ const BHMS = require('../Models/bhmsStudent');
 const GeneralIndividual = require('../Models/generalIndividual');
 const HomeopathicDoctor = require('../Models/homeopathicDoctor');
 const Book = require('../Models/book');
-const order = require('../Models/Order');
+const order = require('../Models/order');
 
 module.exports.getCartController = async (req, res) => {
     try {
