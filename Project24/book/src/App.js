@@ -3,7 +3,7 @@ import Homepagevideo from './components/homepagevideo';
 import Login from './components/Login';
 import NavBar from './components/NavBar';
 import UserForm from './components/UserForm';
-import { useState,useEffect, useContext, createContext } from 'react';
+import { useState, useEffect, useContext, createContext } from 'react';
 import { useCookies } from 'react-cookie'
 import axios from 'axios';
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
@@ -27,6 +27,11 @@ import UserNavbar from './userComponents/UserNavbar';
 import PlaceOrder from './userComponents/PlaceOrder';
 import Orders from './userComponents/Orders';
 import BookStats from './adminComponents/BookStats';
+import RefundPolicy from './homeCompnents/RefundPolicy';
+import TermsofService from './homeCompnents/TermsofService';
+import Privacypolicy from './homeCompnents/Privacypolicy';
+import ShippingAndDelivery from './homeCompnents/ShippingPolicy';
+import Footer from './homeCompnents/Footer';
 //nishanth
 const UserContext = createContext();
 export const useUser = () => useContext(UserContext);
@@ -38,11 +43,11 @@ function App() {
   const [data, setData] = useState({})
   const [datas, setDatas] = useState({})
   const [filterData, setFilterData] = useState([])
-  const [booksData,setBooksData]=useState([])
+  const [booksData, setBooksData] = useState([])
   //nishanth
-  const [books,setBooks]=useState({})
+  const [books, setBooks] = useState({})
   const [cart, setCart] = useState([]);
-  const [orders,setOrders]=useState([]);
+  const [orders, setOrders] = useState([]);
   //nishanth
   useEffect(() => {
     console.log("hello", cookies)
@@ -108,9 +113,9 @@ function App() {
 
       };
       getUserData();
-      const getBooks=async()=>{
+      const getBooks = async () => {
         try {
-          const booksData  = await axios.get('http://localhost:4000/getBooks');
+          const booksData = await axios.get('http://localhost:4000/getBooks');
           setBooksData(booksData)
         } catch (error) {
           console.error("Error fetching user data:", error);
@@ -118,22 +123,22 @@ function App() {
       }
       getBooks()
     }
-    else if(Object.keys(userData).length!=0){
+    else if (Object.keys(userData).length != 0) {
       const fetchBookData = async () => {
         try {
           console.log(userData);
           const response = await axios.get(`http://localhost:4000/getCart/${userData.email}/${userData.userType}`);
-            // const response = await axios.get('http://localhost:4000/getbooks');
-            console.log(response.data);
-            setData(response.data.allBooks);
-            setCart(response.data.booksInCart);
-            setOrders(response.data.finalOrders);
-            
+          // const response = await axios.get('http://localhost:4000/getbooks');
+          console.log(response.data);
+          setData(response.data.allBooks);
+          setCart(response.data.booksInCart);
+          setOrders(response.data.finalOrders);
+
         } catch (error) {
-            console.error('Error fetching data:', error);
+          console.error('Error fetching data:', error);
         }
-    };
-    fetchBookData();
+      };
+      fetchBookData();
     }
   }, [userData.userType]);
   console.log(userData, "hii")
@@ -150,7 +155,12 @@ function App() {
             <Route path='/Content' element={<Content />} />
             <Route path='/Summary' element={<Summary />} />
             <Route path='/Author' element={<Author />} />
+            <Route path='/RefundPolicy' element={<RefundPolicy />} />
+            <Route path='/TermsOfService' element={<TermsofService />} />
+            <Route path='/PrivacyPolicy' element={<Privacypolicy />} />
+            <Route path='/ShippingPolicy' element={<ShippingAndDelivery />} />
           </Routes>
+          <Footer/>
         </Router>
       </>
     );
@@ -160,7 +170,7 @@ function App() {
 
 
     return (
-      
+
       Object.keys(datas).length != 0 &&
       <>
         <Router>
@@ -171,33 +181,45 @@ function App() {
             <Route path='/Practitioners' element={<GeneralIndividualTable data={Object.values(datas.GeneralIndividual)} />}></Route>
             <Route path='/RegisterAdmin' element={<RegiserAdmin userData={userData} />} />
             <Route path='/RegisterUsers' element={<RegisterUsers userData={userData} />} />
-            <Route path='/UsersRegisteredByMe' element={<UsersRegisteredByMe filterData={filterData}/>}/>
-            <Route path='/BuyBooks' element={<BuyBooks userData={userData} booksData={booksData}/>}/>
-            <Route path='/BookStats' element={<BookStats  books={books} setBooks={setBooks}/>}/>
+            <Route path='/UsersRegisteredByMe' element={<UsersRegisteredByMe filterData={filterData} />} />
+            <Route path='/BuyBooks' element={<BuyBooks userData={userData} booksData={booksData} />} />
+            <Route path='/BookStats' element={<BookStats books={books} setBooks={setBooks} />} />
+            <Route path='/RefundPolicy' element={<RefundPolicy />} />
+            <Route path='/TermsOfService' element={<TermsofService />} />
+            <Route path='/PrivacyPolicy' element={<Privacypolicy />} />
+            <Route path='/ShippingPolicy' element={<ShippingAndDelivery />} />
           </Routes>
+          <Footer/>
+
         </Router>
       </>
     )
   }
-  else{
-    return(
-      Object.keys(userData).length!=0 && 
-      Object.keys(data).length!=0 && 
+  else {
+    return (
+      Object.keys(userData).length != 0 &&
+      Object.keys(data).length != 0 &&
       <>
-      <UserContext.Provider value={{ userData, setUserData ,data,setData,cart,setCart,orders,setOrders}}>
-      <Router>
-            <UserNavbar  LogOut={LogOut}/>
+        <UserContext.Provider value={{ userData, setUserData, data, setData, cart, setCart, orders, setOrders }}>
+          <Router>
+            <UserNavbar LogOut={LogOut} />
             <Routes>
-              <Route path='/' element={<Dashboard />}/>
-              <Route path='/SelectedBook' element={<SelectedBook/>}/>
-              <Route path='/cart' element={<Cart/>}/>
-              <Route path='/placeOrder' element={<PlaceOrder/>}/>
-              <Route path='/orders' element={<Orders/>}/>
+              <Route path='/' element={<Dashboard />} />
+              <Route path='/SelectedBook' element={<SelectedBook />} />
+              <Route path='/cart' element={<Cart />} />
+              <Route path='/placeOrder' element={<PlaceOrder />} />
+              <Route path='/orders' element={<Orders />} />
+              <Route path='/RefundPolicy' element={<RefundPolicy />} />
+              <Route path='/TermsOfService' element={<TermsofService />} />
+              <Route path='/PrivacyPolicy' element={<Privacypolicy />} />
+              <Route path='/ShippingPolicy' element={<ShippingAndDelivery />} />
 
             </Routes>
+            <Footer/>
+
           </Router>
-          </UserContext.Provider>
-        </>
+        </UserContext.Provider>
+      </>
     )
   }
 }

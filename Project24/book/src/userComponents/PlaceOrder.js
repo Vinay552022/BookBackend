@@ -11,10 +11,11 @@ const PlaceOrder = () => {
   const [stringAddress, setStringAddress] = useState(`${userData.currentAddress.lane1}, ${userData.currentAddress.lane2}, ${userData.currentAddress.district}, ${userData.currentAddress.state}, ${userData.currentAddress.pincode}`);
   const location = useLocation();
   const orderData = location.state.orderData;
+  console.log(orderData[0],"ko")
   const t = location.state.t;
 
   // Calculate shipping charges
-  const shippingCharges = orderData.length === 20 ? 0 : 79;
+  const shippingCharges = orderData[0].quantity >= 20 ? 0 : 79;
 
   const buy = async () => {
     const { email, userType } = userData;
@@ -108,7 +109,7 @@ const PlaceOrder = () => {
               <div className='mt-3 bg-light'>
                 <Container>
                   <div className='row'>
-                    <div className='col-sm-5 col-md-3 text-center'><b>Total</b> ( {orderData.length} items )</div>
+                    <div className='col-sm-5 col-md-3 text-center'><b>Total</b> ( {orderData[0].quantity} items )</div>
                     <div className='col-sm-3 col-md-3 text-center'><b className=""><span className='fs-4'>{'\u20B9'}</span>{t}</b></div>
                   </div>
                   {shippingCharges > 0 && (

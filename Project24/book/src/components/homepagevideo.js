@@ -152,7 +152,7 @@ import { Link } from 'react-router-dom';
 
 const Homepagevideo = () => {
   const componentStyle = {
-    backgroundColor: '#1B2635', // New background color
+    backgroundColor: 'white', // New background color
     padding: '40px' // Rounded edges for the component
   };
 
@@ -164,7 +164,7 @@ const Homepagevideo = () => {
 
   const h1Style = {
     fontFamily: "'Cinzel', serif",
-    color: 'rgba(255,255,255,0.98)',
+    color: 'black',
     textTransform: 'uppercase',
     fontSize: '2.4rem',
     textAlign: 'center' // Center align the title
