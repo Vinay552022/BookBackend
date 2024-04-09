@@ -25,7 +25,11 @@ mongoose.connect(MONGO_URL,{dbName:'Admins'})
 const allowedOrigins = ['https://www.haelanhomeopathy.com', 'https://haelanhomeopathy.com']; // Add additional origins as needed
 
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', allowedOrigins); // Allow requests from any origin
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  } 
+  // res.setHeader('Access-Control-Allow-Origin', allowedOrigins); // Allow requests from any origin
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.setHeader('Access-Control-Allow-Credentials', true);
