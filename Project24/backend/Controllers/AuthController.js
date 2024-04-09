@@ -96,11 +96,22 @@ module.exports.Login = async (req, res, next) => {
           return res.status(401).json({ message: 'Incorrect email or password' });
       }
 
-      const token = createSecretToken(user._id);
+    //   const token = createSecretToken(user._id);
+
+    //   const expiryDate = new Date();
+    //   expiryDate.setDate(expiryDate.getDate() + 7);
+    //   res.cookie("token", token, { expires: expiryDate });
+    const token = createSecretToken(user._id);
 
       const expiryDate = new Date();
       expiryDate.setDate(expiryDate.getDate() + 7);
-      res.cookie("token", token, { expires: expiryDate });
+      res.cookie("token", token, { 
+        expires: expiryDate,
+        domain: 'bookbackend-1.onrender.com', // Adjust this to your domain
+        path: '/',
+        sameSite: 'None', // Adjust as needed ('Strict', 'Lax', or 'None')
+        secure: true  // Adjust this to the path where the cookie should be accessible
+      });
       const userData = { ...user.toObject(), password: undefined };
       res.status(200).json({ message: "User logged in successfully", success: true, user: userData });
   } catch (error) {
