@@ -19,60 +19,97 @@ export default function ShowOrders(props) {
         const { lane1, lane2, pincode, state, city, country } = addressObj;
         return `${lane1}, ${lane2}, ${pincode}, ${state}, ${city}, ${country}`;
       };
-      const columns = useMemo(
-        () => [
-            {
-                accessorKey: "email",
-                header: "Email",
-                sortingFn: 'alphanumeric'
-            },
-            {
-                accessorKey: "userType",
-                header: "User Type",
-                sortingFn: 'alphanumeric'
-            },
-            {
-                accessorKey: "totalAmount",
-                header: "Total Amount",
-                sortingFn: 'alphanumeric'
-            },
-            {
-                accessorKey: "status",
-                header: "Status",
-                sortingFn: 'alphanumeric'
-            },
-            {
-                accessorKey: "trackingNumber",
-                header: "Tracking Number",
-                sortingFn: 'alphanumeric'
-            },
-            {
-                accessorKey: "createdAt",
-                header: "Created At",
-                Cell: (e) => {
-                    const date = new Date(e.renderedCellValue);
-                    return date.toLocaleString();
-                }
-            },
-            {
-                accessorKey: "deliveredAt",
-                header: "Delivered At",
-                Cell: (e) => {
-                    if (!e.renderedCellValue) return <span>Not Delivered</span>;
-                    const date = new Date(e.renderedCellValue);
-                    return date.toLocaleString();
-                }
-            },
-            {
-                accessorKey: "placedBy",
-                header: "Placed By",
-                sortingFn: 'alphanumeric'
+      
+    
+
+      
+
+const columns = useMemo(
+    () => [
+        {
+            accessorKey: "email",
+            header: "Email",
+            sortingFn: 'alphanumeric'
+        },
+        {
+            accessorKey: "userType",
+            header: "User Type",
+            sortingFn: 'alphanumeric'
+        },
+        {
+            accessorKey: "totalAmount",
+            header: "Total Amount",
+            sortingFn: 'alphanumeric'
+        },
+        {
+            accessorKey: "status",
+            header: "Status",
+            sortingFn: 'alphanumeric'
+        },
+        {
+            accessorKey: "trackingNumber",
+            header: "Tracking Number",
+            Cell: ({ cell }) => {
+                const [trackingNumber, setTrackingNumber] = useState(cell.row.original.trackingNumber);
+                
+                const handleTrackingNumberChange = (e) => {
+                    setTrackingNumber(e.target.value);
+                };
+
+                const handleTrackingNumberSubmit = async () => {
+                    try {
+                        await axios.post(`/api/update-tracking-number/${cell.row.original._id}`, { trackingNumber });
+                        // Optionally, you can update the state to reflect the change in the UI
+                    } catch (error) {
+                        console.error(error);
+                        // Handle error
+                    }
+                };
+
+                return (
+                    <div>
+                        <input
+                            type="text"
+                            value={trackingNumber}
+                            onChange={handleTrackingNumberChange}
+                        />
+                        <button
+                            type="button"
+                            className="btn btn-dark"
+                            onClick={handleTrackingNumberSubmit}
+                        >
+                            Submit
+                        </button>
+                    </div>
+                );
             }
-        ],
-        []
-    );
-    
-    
+        },
+        {
+            accessorKey: "createdAt",
+            header: "Created At",
+            Cell: (e) => {
+                const date = new Date(e.renderedCellValue);
+                return date.toLocaleString();
+            }
+        },
+        {
+            accessorKey: "deliveredAt",
+            header: "Delivered At",
+            Cell: (e) => {
+                if (!e.renderedCellValue) return <span>Not Delivered</span>;
+                const date = new Date(e.renderedCellValue);
+                return date.toLocaleString();
+            }
+        },
+        {
+            accessorKey: "placedBy",
+            header: "Placed By",
+            sortingFn: 'alphanumeric'
+        }
+    ],
+    []
+);
+
 
     const table = useMaterialReactTable({
         data,

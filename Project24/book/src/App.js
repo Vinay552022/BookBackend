@@ -96,8 +96,8 @@ function App() {
           setBooks(response.data.allBooks);
           //nishanth
           const orderDataget=await axios.get(`https://bookbackend-4.onrender.com/getOrders`);
-          setOrderData(orderDataget)
-          console.log(orderDataget,"get")
+          setOrderData(orderDataget.data)
+          console.log(orderDataget.data,"get")
           let filteredData = [];
           if (userData.usersAdded) {
             const { BHMSstudent, GeneralIndividual, HomeopathicDoctor } = data;

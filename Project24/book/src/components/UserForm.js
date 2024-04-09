@@ -19,7 +19,7 @@ const RegistrationForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:4000/registerUser', data);
+      const response = await axios.post('https://bookbackend-4.onrender.com/registerUser', data);
 
       if (!response.data) {
         throw new Error('Failed to register user');
