@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 function Footer() {
   return (
     <footer className="footer m-2">
-      <div className="container">
+      <hr className='mt-5'></hr>
+      <div className="container mt-5">
         <div className="row">
           <div className="col-md-4">
             <h5>Quick Links</h5>

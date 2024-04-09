@@ -12,7 +12,7 @@ export default function BookStats(props) {
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <Container className='mt-4 flex-grow-1'>
         <h2>Stats</h2>
-        {books.map((card, index) => (
+        {Object.keys(books).length!=0 && books.map((card, index) => (
           <div key={index} className="card mb-3 shadow-lg " >
             <div className="row g-0">
               <div className="col-md-4">

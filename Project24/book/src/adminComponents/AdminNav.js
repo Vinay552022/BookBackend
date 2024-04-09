@@ -35,6 +35,14 @@ export default function AdminNav(props) {
                 </Link>
               </li>
               <li className="nav-item">
+                <Link className="nav-link" to={"/ShowOrders"}>
+                  ShowOrders
+                </Link>
+              </li>
+              <li>
+                <Link className="nav-link" to={"BHMSstudent"}>BHMSStudent</Link>
+              </li>
+              <li className="nav-item">
                 <Link className="nav-link" to={"/HomeoPathicDoctor"}>
                   HomiopathicDoctors
                 </Link>
@@ -59,11 +67,7 @@ export default function AdminNav(props) {
                   UsersRegisteredByMe
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" to={"/BookStats"}>
-                  BookStats
-                </Link>
-              </li>
+              
 
               <li className="nav-item">
                 <Link

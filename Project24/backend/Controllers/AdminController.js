@@ -3,6 +3,7 @@ const GeneralIndividual = require('../Models/generalIndividual');
 const HomeopathicDoctor = require('../Models/homeopathicDoctor');
 const User = require('../Models/userModel');
 const Book=require('../Models/book')
+const Order=require('../Models/order')
 // Function to fetch user data based on email addresses from usersAdded array in admin schema
 const fetchUserData = async (adminEmail) => {
     try {
@@ -51,3 +52,17 @@ module.exports.getBooks=async (req,res)=>{
         res.status(500).json({ message: error.message });
       }
 }
+
+
+module.exports.getOrders = async (req, res) => {
+  try {
+    // Fetch all orders from the database
+    const orders = await Order.find();
+
+    // Send the orders to the client
+    res.json(orders);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server Error' });
+  }
+};

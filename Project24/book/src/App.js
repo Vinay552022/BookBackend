@@ -32,6 +32,7 @@ import TermsofService from './homeCompnents/TermsofService';
 import Privacypolicy from './homeCompnents/Privacypolicy';
 import ShippingAndDelivery from './homeCompnents/ShippingPolicy';
 import Footer from './homeCompnents/Footer';
+import ShowOrders from './adminComponents/ShowOrders';
 //nishanth
 const UserContext = createContext();
 export const useUser = () => useContext(UserContext);
@@ -48,6 +49,7 @@ function App() {
   const [books, setBooks] = useState({})
   const [cart, setCart] = useState([]);
   const [orders, setOrders] = useState([]);
+  const [orderData,setOrderData]=useState([])
   //nishanth
   useEffect(() => {
     console.log("hello", cookies)
@@ -93,6 +95,9 @@ function App() {
           console.log(response.data);
           setBooks(response.data.allBooks);
           //nishanth
+          const orderDataget=await axios.get(`https://bookbackend-4.onrender.com/getOrders`);
+          setOrderData(orderDataget)
+          console.log(orderDataget,"get")
           let filteredData = [];
           if (userData.usersAdded) {
             const { BHMSstudent, GeneralIndividual, HomeopathicDoctor } = data;
@@ -171,23 +176,24 @@ function App() {
 
     return (
 
-      Object.keys(datas).length != 0 &&
+      Object.keys(datas).length != 0 && orderData &&
       <>
         <Router>
           <AdminNav LogOut={LogOut} />
           <Routes>
-            <Route path='/' exact element={<BHMSTable data={Object.values(datas.BHMSstudent)} />}></Route>
+            <Route path='/BHMSstudent' exact element={<BHMSTable data={Object.values(datas.BHMSstudent)} />}></Route>
             <Route path='/HomeopathicDoctor' element={<HomeopathicDoctor data={Object.values(datas.HomeopathicDoctor)} />}></Route>
             <Route path='/Practitioners' element={<GeneralIndividualTable data={Object.values(datas.GeneralIndividual)} />}></Route>
             <Route path='/RegisterAdmin' element={<RegiserAdmin userData={userData} />} />
             <Route path='/RegisterUsers' element={<RegisterUsers userData={userData} />} />
             <Route path='/UsersRegisteredByMe' element={<UsersRegisteredByMe filterData={filterData} />} />
             <Route path='/BuyBooks' element={<BuyBooks userData={userData} booksData={booksData} />} />
-            <Route path='/BookStats' element={<BookStats books={books} setBooks={setBooks} />} />
+            <Route path='/' element={<BookStats books={books} setBooks={setBooks} />} />
             <Route path='/RefundPolicy' element={<RefundPolicy />} />
             <Route path='/TermsOfService' element={<TermsofService />} />
             <Route path='/PrivacyPolicy' element={<Privacypolicy />} />
             <Route path='/ShippingPolicy' element={<ShippingAndDelivery />} />
+            <Route path='/ShowOrders' element={<ShowOrders orderData={orderData}/>}></Route>
           </Routes>
           <Footer/>
 

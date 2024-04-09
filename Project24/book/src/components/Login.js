@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Eye, EyeSlash } from "react-bootstrap-icons";
 
 export default function Login(props) {
   const [passwordError, setPasswordError] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
   const [login, setLogin] = useState({ email: '', password: '' });
   const [errorMessage, setErrorMessage] = useState('');
   const { setUserData } = props;
@@ -71,17 +73,26 @@ export default function Login(props) {
           <label htmlFor="inputPassword" className="form-label">
             Password
           </label>
-          <input
-            type="password"
-            name="password"
-            className={`form-control ${
-              passwordError ? 'is-invalid' : ''
-            }`}
-            id="inputPassword"
-            onChange={(e) =>
-              setLogin({ ...login, [e.target.name]: e.target.value })
-            }
-          />
+          <div className="input-group">
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              className={`form-control ${
+                passwordError ? 'is-invalid' : ''
+              }`}
+              id="inputPassword"
+              onChange={(e) =>
+                setLogin({ ...login, [e.target.name]: e.target.value })
+              }
+            />
+            <button
+              className="btn btn-outline-secondary"
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <EyeSlash /> : <Eye />}
+            </button>
+          </div>
           {passwordError && (
             <div className="invalid-feedback">Please enter your password.</div>
           )}

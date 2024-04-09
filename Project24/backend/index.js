@@ -18,6 +18,7 @@ let {deleteCartController}=require('./Controllers/deleteCartController.js');
 const { getCartController } = require('./Controllers/getCartController.js');
 const { placeOrderController } = require('./Controllers/placeOrderController.js');
 const { sendOtp, verifyOtp } = require('./Controllers/otpController.js');
+const {getOrders}=require('./Controllers/AdminController.js')
 //mongo connection
 mongoose.connect(MONGO_URL,{dbName:'Admins'})
 .then(()=>console.log("db connection successfull"))
@@ -62,3 +63,4 @@ app.delete(`/delete_cart/:email/:userType/:bookId`,deleteCartController)
 app.post('/send-otp', sendOtp);
 app.post('/verify-otp',verifyOtp);
 
+app.get('/getOrders',getOrders)
