@@ -42,7 +42,7 @@ const SelectedBook = () => {
     const bookId = bookData.bookId;
 
     try {
-      const response = await axios.put(`http://localhost:4000/add_to_cart/${bookId}`, {
+      const response = await axios.put(`https://bookbackend-4.onrender.com/add_to_cart/${bookId}`, {
         userType,
         email,
         count,
@@ -147,7 +147,7 @@ const SelectedBook = () => {
             <div className="me-3 fs-5"> by {bookData.author}</div>
           </div>
           <div className="row mb-2">
-            <div className="me-3 col-2 card-text fs-5"><b className="fs-4">{'\u20B9'}</b>{bookData.price}</div>
+            <div className="me-3 col-2 card-text fs-5"><del>800₹</del> {bookData.price}₹</div>
           </div>
           <div className="d-flex align-items-center mb-3">
             <div className="me-2 fs-5">Quantity:</div>

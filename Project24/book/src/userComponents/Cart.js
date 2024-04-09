@@ -34,7 +34,7 @@ export default function Cart() {
     const count = item;
 
     try {
-      const response = await axios.put(`http://localhost:4000/add_to_cart/${bookId}`, {
+      const response = await axios.put(`https://bookbackend-4.onrender.com/add_to_cart/${bookId}`, {
         userType,
         email,
         count,
@@ -66,7 +66,7 @@ export default function Cart() {
     try {
       const userType = userData.userType;
       const email = userData.email;
-      const response = await axios.delete(`http://localhost:4000/delete_cart/${email}/${userType}/${card.bookId}`);
+      const response = await axios.delete(`https://bookbackend-4.onrender.com/delete_cart/${email}/${userType}/${card.bookId}`);
 
       const updatedCart = [...cart];
       const item_price = cart[index].quantity * cart[index].price;

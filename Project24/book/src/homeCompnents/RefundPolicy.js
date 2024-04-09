@@ -16,11 +16,20 @@ function RefundPolicy() {
                 <p>If accepted, your refund may take upto 15 days to be credited from the day of refund acceptance by Arak Perfume.</p>
                 <p>To be eligible for a return, your item must be in the same condition that you received it, unworn or unused, with tags, and in its original packaging. You’ll also need the receipt or proof of purchase.</p>
                 <p>You can always contact us for any return question at <a>vinay552022@gmail.com</a> or chat with us from site's chat support.</p>
+                <p>product will be returned within 10 days of raising complaint</p>
 
 
             
                 <h2>Refunds</h2>
                 <p>We will notify you once we’ve received and inspected your return, and let you know if the refund was approved or not. If approved, you’ll be automatically refunded on your original payment method within 10 business days. Please remember it can take some time for your bank or credit card company to process and post the refund too. Only if damaged product is recieved at the time of delivery (unboxing video footage required*), we will accept a replacement and also reimburse the shipping costs upto INR. 79/-* on furnishing the return shipping receipt..</p>
+            </div>
+            <div className="col-md-4">
+            <h5>Contact Information</h5>
+            {/* <p>123 Street Name, City, Country</p> */}
+           
+            <p>Wild Thirsty Farmer Private Limited</p>
+            <p>GST:36AACCW4701H1ZH</p>
+            <p>Shiva Kumar Reddy Methuku</p>
             </div>
         </div>
     );

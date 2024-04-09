@@ -34,7 +34,7 @@ const PlaceOrder = () => {
     };
 
     try {
-      const response = await axios.post('http://localhost:4000/placeOrder', orderDetails);
+      const response = await axios.post('https://bookbackend-4.onrender.com/placeOrder', orderDetails);
       console.log('Response:', response.data);
       var arr = [...orders];
       const item = orderData.map(card => ({

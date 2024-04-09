@@ -22,7 +22,7 @@ export default function RegisterAdmin(props) {
     // Reset password error state if a valid password is entered
     setPasswordError(false);
     try {
-      const { data } = await axios.post('http://localhost:4000/registerAdmin', registrationData, {
+      const { data } = await axios.post('https://bookbackend-4.onrender.com/registerAdmin', registrationData, {
         withCredentials: true,
       });
   

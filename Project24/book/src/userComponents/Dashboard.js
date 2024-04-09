@@ -43,7 +43,7 @@ const Dashboard = () => {
                                     </div>
                                     <div className='row'>
                                         <b className="col card-text">Price</b>
-                                        <div className="col card-text "><b className="fs-5">{'\u20B9'}</b>{card.price}</div>
+                                        <div className="col card-text "><del>800₹</del> {card.price}₹ </div>
                                     </div>
                                     <div className='d-grid gap-2 col-6 mt-4 mx-auto'>
                                         <button className='btn btn-dark ' onClick={() => handleBookClick(card)}>View</button>

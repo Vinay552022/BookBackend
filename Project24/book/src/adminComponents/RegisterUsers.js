@@ -18,7 +18,7 @@ const RegisterUsers = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:4000/userRegistrationByAdmin', {...data,adminEmail:userData.email});
+      const response = await axios.post('https://bookbackend-4.onrender.com/userRegistrationByAdmin', {...data,adminEmail:userData.email});
       if (!response.data) {
         throw new Error('Failed to register user');
       }

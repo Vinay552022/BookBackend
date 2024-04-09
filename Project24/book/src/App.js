@@ -57,7 +57,7 @@ function App() {
         console.log("p")
         try {
           const response = await axios.post(
-            "http://localhost:4000",
+            "https://bookbackend-4.onrender.com",
             {},
             { withCredentials: true }
           );
@@ -85,11 +85,11 @@ function App() {
     if (userData.userType === "Admin") {
       const getUserData = async () => {
         try {
-          const { data } = await axios.get('http://localhost:4000/user-data');
+          const { data } = await axios.get('https://bookbackend-4.onrender.com/user-data');
           setDatas(data);
 
           //nishanth
-          const response = await axios.get(`http://localhost:4000/getCart/${userData.email}/${userData.userType}`);
+          const response = await axios.get(`https://bookbackend-4.onrender.com/getCart/${userData.email}/${userData.userType}`);
           console.log(response.data);
           setBooks(response.data.allBooks);
           //nishanth
@@ -115,7 +115,7 @@ function App() {
       getUserData();
       const getBooks = async () => {
         try {
-          const booksData = await axios.get('http://localhost:4000/getBooks');
+          const booksData = await axios.get('https://bookbackend-4.onrender.com/getBooks');
           setBooksData(booksData)
         } catch (error) {
           console.error("Error fetching user data:", error);
@@ -127,7 +127,7 @@ function App() {
       const fetchBookData = async () => {
         try {
           console.log(userData);
-          const response = await axios.get(`http://localhost:4000/getCart/${userData.email}/${userData.userType}`);
+          const response = await axios.get(`https://bookbackend-4.onrender.com/getCart/${userData.email}/${userData.userType}`);
           // const response = await axios.get('http://localhost:4000/getbooks');
           console.log(response.data);
           setData(response.data.allBooks);

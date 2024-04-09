@@ -17,16 +17,9 @@ function Footer() {
 
             </ul>
           </div>
-          <div className="col-md-4">
-            <h5>Contact Information</h5>
-            {/* <p>123 Street Name, City, Country</p> */}
-            <p>Email: vinay552022@gmail.com</p>
-            <p>Wild Thirsty Farmer Private Limited</p>
-            <p>GST:36AACCW4701H1ZH</p>
-            <p>Shiva Kumar Reddy Methuku</p>
-            </div>
+          
             <div className="col-md-4">
-
+            <p>Email: vinay552022@gmail.com</p>
             <p>#H.No: 1-7-376, Revenue Colony, Subedari, Hanamkonda, Telangana - 506001</p>
             <p>Ph:6305565672</p>
           </div>
