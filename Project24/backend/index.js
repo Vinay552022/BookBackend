@@ -65,4 +65,4 @@ app.post('/send-otp', sendOtp);
 app.post('/verify-otp',verifyOtp);
 
 app.get('/getOrders',getOrders)
-app.put('/buyBooks',buyBooks)
+app.post('/buyBooks',buyBooks)
