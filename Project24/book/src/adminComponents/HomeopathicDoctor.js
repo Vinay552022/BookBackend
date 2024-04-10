@@ -132,7 +132,7 @@ export default function BHMSStudent(props){
       });
       setsubmitbuttonEnabled(true);
     } catch (error) {
-      console.log("Failed to send OTP");
+      console.log("Failed to send OTP",error.message,"hio");
     }
     
   };
@@ -146,7 +146,7 @@ export default function BHMSStudent(props){
         userEnteredOTP
       });
 
-      console.log(response)
+      console.log(response,"huo")
       setsubmitbuttondisplay(true);
     } catch (error) {
       console.log("Failed to send OTP");
