@@ -97,7 +97,7 @@ module.exports.buyBooks = async (req, res) => {
   
       // Save the order
       const placedOrder = await newOrder.save();
-  
+      res.status(200).json({success:'True'})
       
     } catch (error) {
       console.error('Error placing order', error);
