@@ -69,7 +69,7 @@ module.exports.getOrders = async (req, res) => {
 module.exports.buyBooks = async (req, res) => {
     const { email, userType } = req.body.userData;
     const {email:adminEmail}=req.body.adminData;
-    const {bookId}=req.body.booksData
+    const {bookId}=req.body.booksData[0]
     console.log(req.body.booksData,req.body.userdata,req.body.adminData,req.body.data,bookId)
     const {totalPrice,
         paymentMethod,

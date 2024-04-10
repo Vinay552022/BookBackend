@@ -41,7 +41,7 @@ const BuyBooks = (props) => {
       // Assuming you have an endpoint for placing orders
       const response = await axios.post('https://bookbackend-4.onrender.com/buyBooks', {
         userData,
-        booksData,
+        booksData:booksData,
         adminData,
         data:{totalPrice,
         paymentMethod,
