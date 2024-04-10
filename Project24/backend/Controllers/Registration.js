@@ -96,7 +96,7 @@ module.exports.userRegistrationByAdmin = async (req, res) => {
 
         // Add the email of the registered user to the adminsAdded array in the User model
         const adminUser = await User.findOneAndUpdate(
-            { email:adminEmail },
+            { email:userData.adminEmail },
             { $push: { usersAdded: newUser.email } },
             { new: true }
         );
