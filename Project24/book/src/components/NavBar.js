@@ -1,12 +1,22 @@
 import { Link } from "react-router-dom";
 import logo from '../components/Images/logo.png'
 export default function NavBar() {
+  const h1Style = {
+    fontFamily: "'Cinzel', serif",
+    color: 'black',
+    textTransform: 'uppercase',
+    fontSize: '1.4 rem',
+    textAlign: 'center'
+  };
+
   return (
     <div>
       <nav className="navbar border-bottom border-body navbar-expand-lg" data-bs-theme="white">
 
         <div className="container-fluid">
-        <a className="navbar-brand" href="#"><img  className="img-fluid"  style={{ width: "30px" }} src={logo}/></a>
+        <div className="d-flex justify-content-center align-items-center">
+        <a className="navbar-brand" href="#"><img  className="img-fluid "  style={{ width: "30px" }} src={logo}/></a><h5 className="mt-2 ms-0" style={h1Style}>HAELAN HOMEOPATHY</h5>
+        </div>
           <button
             className="navbar-toggler "
             type="button"

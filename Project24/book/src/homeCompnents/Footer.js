@@ -20,7 +20,7 @@ function Footer() {
           </div>
           
             <div className="col-md-4">
-            <p>Email: vinay552022@gmail.com</p>
+            <p>Email: shiva.methuku@gmail.com</p>
             <p>#H.No: 1-7-376, Revenue Colony, Subedari, Hanamkonda, Telangana - 506001</p>
             <p>Ph:6305565672</p>
           </div>

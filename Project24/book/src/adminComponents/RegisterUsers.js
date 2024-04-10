@@ -34,10 +34,11 @@ const RegisterUsers = (props) => {
     } catch (error) {
       console.error('Error:', error);
       // Show error notification to the user
-      window.scrollTo(0, 0); // Scroll to the top of the page
+      // window.scrollTo(0, 0); // Scroll to the top of the page
 
       if (error.response && error.response.data && error.response.data.message) {
-        setNotification({ message: error.response.data.message, type: 'danger' });
+        // setNotification({ message: error.response.data.message, type: 'danger' });
+        console.log("internal server error")
       } else {
         setNotification({ message: 'An error occurred', type: 'danger' });
       }

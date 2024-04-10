@@ -98,7 +98,7 @@ const TermsOfService = () => {
       <p>We reserve the right, at our sole discretion, to update, change, or replace any part of these Terms of Service by posting updates and changes to our website. It is your responsibility to check our website periodically for changes. Your continued use of or access to our website or the Service following the posting of any changes to these Terms of Service constitutes acceptance of those changes.</p>
       
       <h3>Section 20 - Contact Information</h3>
-      <p>Questions about the Terms of Service should be sent to us at vinay552022@gmail.com.</p>
+      <p>Questions about the Terms of Service should be sent to us at shiva.methuku@gmail.com.</p>
     </div>
   );
 }

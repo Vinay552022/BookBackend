@@ -19,6 +19,7 @@ const { getCartController } = require('./Controllers/getCartController.js');
 const { placeOrderController } = require('./Controllers/placeOrderController.js');
 const { sendOtp, verifyOtp } = require('./Controllers/otpController.js');
 const {getOrders}=require('./Controllers/AdminController.js')
+const {buyBooks}=require('./Controllers/AdminController.js')
 //mongo connection
 mongoose.connect(MONGO_URL,{dbName:'Admins'})
 .then(()=>console.log("db connection successfull"))
@@ -64,3 +65,4 @@ app.post('/send-otp', sendOtp);
 app.post('/verify-otp',verifyOtp);
 
 app.get('/getOrders',getOrders)
+app.put('/buyBooks',buyBooks)

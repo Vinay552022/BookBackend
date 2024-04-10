@@ -7,7 +7,7 @@ function ReturnPolicy() {
         </div>
       
       <p>We have a 14-day return policy, which means you have 30 days after receiving your item to request a return.</p>
-      <p>To start a return, you can contact us at <a href="mailto:arakperfumebiz@gmail.com">arakperfumebiz@gmail.com</a>.</p>
+      <p>To start a return, you can contact us at <a href="mailto:shiva.methuku@gmail.com">shiva.methuku@gmail.com</a>.</p>
       <p>If your return is accepted, we’ll send you a return shipping label, as well as instructions on how and where to send your package. Items sent back to us without first requesting a return will not be accepted.</p>
       <p>In extreme cases of damaged product delivery (leakage / broken / missing items) due to transit, a refund / exchange can be initiated after a thorough verification of the refund policy.</p>
       <p>Cancellation of orders can be processed before their dispatch from the warehouses only. A gateway charge of 2.5% shall be levied against your order for cancellation. A refund for paid orders shall be credited to the original payment account within 15 days of cancellation acceptance.</p>

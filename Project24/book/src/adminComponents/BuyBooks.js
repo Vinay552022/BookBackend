@@ -39,11 +39,14 @@ const BuyBooks = (props) => {
     e.preventDefault();
     try {
       // Assuming you have an endpoint for placing orders
-      const response = await axios.post('http://localhost:4000/placeOrder', {
-        book,
-        quantity,
-        totalPrice,
+      const response = await axios.post('https://bookbackend-4.onrender.com/buyBooks', {
+        userData,
+        booksData,
+        adminData,
+        data:{totalPrice,
         paymentMethod,
+        quantity}
+
       });
       if (!response.data) {
         throw new Error('Failed to place order');

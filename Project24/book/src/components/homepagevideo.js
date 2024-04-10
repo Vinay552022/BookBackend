@@ -6,14 +6,14 @@ import { Link } from 'react-router-dom';
 
 const Homepagevideo = () => {
   const componentStyle = {
-    backgroundColor: 'white', // New background color
-    padding: '40px' // Rounded edges for the component
+    backgroundColor: 'white',
+    padding: '40px'
   };
 
   const videoStyle = {
     width: '100%',
     display: 'block',
-    borderRadius: '20px', // Rounded edges for the video
+    borderRadius: '20px',
   };
 
   const h1Style = {
@@ -21,7 +21,7 @@ const Homepagevideo = () => {
     color: 'black',
     textTransform: 'uppercase',
     fontSize: '2.4rem',
-    textAlign: 'center' // Center align the title
+    textAlign: 'center'
   };
 
   const pStyle = {
@@ -52,17 +52,15 @@ const Homepagevideo = () => {
     color: 'rgba(255,255,255,0.95)',
     filter: 'drop-shadow(0)',
     fontWeight: 'bold',
-
   };
 
   const containerStyle = {
-    // Limit container width for smaller screens
-    
     margin: '0 auto',
   };
 
   return (
-    <div className='' style={componentStyle}>
+<div className={`p-2 ${window.innerWidth <= 768 ? 'reduced-padding' : ''}`} style={containerStyle}>
+
       <h1 style={h1Style} className='mt-2'>Haelan Homeopathy</h1>
       <br />
       <br />
@@ -76,13 +74,11 @@ const Homepagevideo = () => {
           </div>
           <div className="mt-4">
             <h1 style={h1Style} className='mt-2 text-center'>The Essentials of Materia Medica</h1>
-            {/* <p style={pStyle}>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> */}
             <div style={buttonWrapperStyle} className="button-wrapper d-flex justify-content-center align-items-center">
               <button style={{ ...btnStyle, ...fillStyle }} className="btn fill"><Link className='text-decoration-none text-dark'  to="/form">
-            Register now
-          </Link></button>
+                Buy now
+              </Link></button>
             </div>
-            
           </div>
         </div>
       </div>
@@ -102,20 +98,20 @@ const Homepagevideo = () => {
               </div>
             </div>
           </div>
-          <h1 className="text-body-emphasis">Key Points of the Book</h1>
-          <ul className="col-lg-8 col-sm-10 mx-auto mb-4 list-unstyled"> {/* Removed text-left class */}
-            <li className="text-left">STUDY WITH FABULOUS ILLUSTRATIONS</li>
-            <li className="text-left">ALL KEYNOTES COVERED AT ONE PLACE</li>
-            <li className="text-left">EASY APPROACH TO UNDERSTANDING CONSTITUTION, MIASMS AND SPHERE OF ACTION BY OBSERVING PIE DIAGRAMS, TABLES, AND ILLUSTRATIONS.</li>
-            <li className="text-left">STUDY PHYSIO-PATHOLOGICAL ACTION THROUGH FLOW CHARTS IN THE SIMPLEST WAY POSSIBLE.</li>
-            <li className="text-left">INDEPTH COMPARATIVE STUDY OF ESSENTIAL DRUGS WITH MATCHING SYMPTOMATOLOGY AT THE SAME PLACE.</li>
-            <li className="text-left">FOR THE FIRST TIME NOTEWORTHY RUBRICS OF THE REMEDY ARE MENTIONED SO THAT YOU CAN EMPHASIZE THE MOST RELEVANT SYMPTOMS OF THE REMEDY IN REPERTORIAL LANGUAGE.</li>
-            <li className="text-left">VERY PRECIOUS CLINICAL AND DOSAGE TIPS THAT HAVE UNPARALLELED IMPORTANCE IN PRACTICE</li>
+          <h1 className="text-body-emphasis mb-1">Key Points of the Book</h1>
+          <ul className="col-lg-8 col-sm-10 mx-auto mb-4 " style={{ textAlign: 'left' }}>
+            <li className="mt-2">STUDY WITH FABULOUS ILLUSTRATIONS</li>
+            <li className="mt-2">ALL KEYNOTES COVERED AT ONE PLACE</li>
+            <li className="mt-2">EASY APPROACH TO UNDERSTANDING CONSTITUTION, MIASMS AND SPHERE OF ACTION BY OBSERVING PIE DIAGRAMS, TABLES, AND ILLUSTRATIONS.</li>
+            <li className="mt-2">STUDY PHYSIO-PATHOLOGICAL ACTION THROUGH FLOW CHARTS IN THE SIMPLEST WAY POSSIBLE.</li>
+            <li className="mt-2">INDEPTH COMPARATIVE STUDY OF ESSENTIAL DRUGS WITH MATCHING SYMPTOMATOLOGY AT THE SAME PLACE.</li>
+            <li className="mt-2">FOR THE FIRST TIME NOTEWORTHY RUBRICS OF THE REMEDY ARE MENTIONED SO THAT YOU CAN EMPHASIZE THE MOST RELEVANT SYMPTOMS OF THE REMEDY IN REPERTORIAL LANGUAGE.</li>
+            <li className="mt-2">VERY PRECIOUS CLINICAL AND DOSAGE TIPS THAT HAVE UNPARALLELED IMPORTANCE IN PRACTICE</li>
           </ul>
           <div style={buttonWrapperStyle} className="button-wrapper mb-5">
             <button style={{ ...btnStyle, ...fillStyle }} className="btn fill"><Link className="text-decoration-none text-dark" to="/form">
-            Register now
-          </Link></button>
+              Buy now
+            </Link></button>
           </div>
         </div>
       </div>
