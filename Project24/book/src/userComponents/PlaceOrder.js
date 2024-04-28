@@ -18,7 +18,7 @@ const PlaceOrder = () => {
   const shippingCharges = orderData[0].quantity >= 20 ? 0 : 79;
 
   const buy = async () => {
-    const { email, userType } = userData;
+    const { email, userType,phoneNumber } = userData;
     const totalAmount = t + shippingCharges; // Add shipping charges to the total amount
     const items = orderData.map(card => ({
       bookId: card.bookId,
@@ -30,12 +30,19 @@ const PlaceOrder = () => {
       email,
       userType,
       items,
-      totalAmount
+      totalAmount,
+      phoneNumber,
+      MUID: "MUID" + Date.now(),
+      transactionId: 'T' + Date.now(),
     };
 
     try {
-      const response = await axios.post('https://bookbackend-4.onrender.com/placeOrder', orderDetails);
+      const response = await axios.post('http://localhost:4000/placeOrder', orderDetails);
       console.log('Response:', response.data);
+      if (response.data.data && response.data.data.instrumentResponse.redirectInfo.url) {
+        console.log('Response:', response.data.data.instrumentResponse.redirectInfo.url);
+        window.location.href = response.data.data.instrumentResponse.redirectInfo.url;
+      }
       var arr = [...orders];
       const item = orderData.map(card => ({
         bookId: card.bookId,

@@ -39,7 +39,7 @@ const BuyBooks = (props) => {
     e.preventDefault();
     try {
       // Assuming you have an endpoint for placing orders
-      const response = await axios.post('https://bookbackend-4.onrender.com/buyBooks', {
+      const response = await axios.post('http://localhost:4000/buyBooks', {
         userData,
         booksData:booksData,
         adminData,

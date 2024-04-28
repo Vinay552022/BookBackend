@@ -127,7 +127,7 @@ export default function BHMSStudent(props){
 
     try {
       const email=formData.email;
-      const response = await axios.post("https://bookbackend-4.onrender.com/send-otp", {
+      const response = await axios.post("http://localhost:4000/send-otp", {
         email,
       });
       setsubmitbuttonEnabled(true);
@@ -141,7 +141,7 @@ export default function BHMSStudent(props){
     try {
       const email=formData.email;
       const userEnteredOTP=otp;
-      const response = await axios.post("https://bookbackend-4.onrender.com/verify-otp", {
+      const response = await axios.post("http://localhost:4000/verify-otp", {
         email,
         userEnteredOTP
       });

@@ -107,10 +107,10 @@ module.exports.Login = async (req, res, next) => {
       expiryDate.setDate(expiryDate.getDate() + 7);
       res.cookie("token", token, { 
         expires: expiryDate,
-        domain: 'bookbackend-4.onrender.com', // Adjust this to your domain
-        path: '/',
-        sameSite: 'None', // Adjust as needed ('Strict', 'Lax', or 'None')
-        secure: true  // Adjust this to the path where the cookie should be accessible
+        // domain: 'http://localhost:3000/', // Adjust this to your domain
+        // path: '/',
+        // sameSite: 'None', // Adjust as needed ('Strict', 'Lax', or 'None')
+        // secure: true  // Adjust this to the path where the cookie should be accessible
       });
       const userData = { ...user.toObject(), password: undefined };
       res.status(200).json({ message: "User logged in successfully", success: true, user: userData });
@@ -119,3 +119,54 @@ module.exports.Login = async (req, res, next) => {
       res.status(500).json({ message: 'Internal server error' });
   }
 };
+
+
+module.exports.changePassword = async (req, res, next) => {
+    try {
+        const { email, currentPassword,password } = req.body;
+        if (!email || !currentPassword || !password) {
+            return res.status(400).json({ message: 'All fields are required' });
+        }
+  
+        const [admin, bhmsUser, homeopathicDoctorUser, generalIndividualUser] = await Promise.all([
+            User.findOne({ email }),
+            BHMS.findOne({ email }),
+            HomeopathicDoctor.findOne({ email }),
+            GeneralIndividual.findOne({ email })
+        ]);
+  
+        let user;
+        let userType;
+  
+        if (admin) {
+            user = admin;
+            userType = 'admin';
+        } else if (bhmsUser) {
+            user = bhmsUser;
+            userType = 'BHMS student';
+        } else if (homeopathicDoctorUser) {
+            user = homeopathicDoctorUser;
+            userType = 'Homeopathic doctor';
+        } else if (generalIndividualUser) {
+            user = generalIndividualUser;
+            userType = 'General individual';
+        } else {
+            return res.status(401).json({ message: 'Incorrect email or password' });
+        }
+  
+        const auth = await bcrypt.compare(currentPassword, user.password);
+        console.log(auth)
+        if (!auth) {
+            return res.status(401).json({ message: 'Incorrect email or password' });
+        }
+
+        user.password=password;
+        await user.save();
+
+        res.status(200).json({ message: 'Password updated successfully' });
+    
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+  };

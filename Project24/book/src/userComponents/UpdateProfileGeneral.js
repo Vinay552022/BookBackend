@@ -1,64 +1,18 @@
 import {React,useState,useEffect} from "react";
-import { Eye, EyeSlash } from "react-bootstrap-icons";
 import { Country, State, City } from 'country-state-city';
-import axios from 'axios';
-
-export default function BHMSStudent(props){
-  
-  const { setData } = props;
-  const [selectedCountry, setSelectedCountry] = useState('');
-  const [selectedState, setSelectedState] = useState('');
-  const [selectedCity, setSelectedCity] = useState('');
-  const [residentialCountry, setResidentialCountry] = useState('');
-  const [residentialState, setResidentialState] = useState('');
-  const [residentialCity, setResidentialCity] = useState('');
-  const [sameAsCurrent, setSameAsCurrent] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+import { useUser } from '../App';
+export default function UpdateProfileGeneral({formData,setFormData,handleupdate,handleCheckboxChange,handleChange,handleCurrentAddressChange,handleResidentialAddressChange,sameAsCurrent}){
+  const { userData } = useUser();
+  const [selectedCountry, setSelectedCountry] = useState(userData.currentAddress.country);
+  const [selectedState, setSelectedState] = useState(userData.currentAddress.state);
+  const [selectedCity, setSelectedCity] = useState(userData.currentAddress.city);
+  const [residentialCountry, setResidentialCountry] = useState(userData.residentialAddress.country);
+  const [residentialState, setResidentialState] = useState(userData.residentialAddress.state);
+  const [residentialCity, setResidentialCity] = useState(userData.residentialAddress.city);
   const [selectedCountryISO,setSelectedCountryISO]=useState('')
   const [selectedStateISO,setSelectedStateISO]=useState('')
   const [residentialStateISO,setResidentialStateISO]=useState('')
   const [residentialCountryISO,setResidentialCountryISO]=useState('')
-  const [submitbuttonEnabled, setsubmitbuttonEnabled] = useState(false);
-  const [otp,setotp]=useState();
-  const [submitbuttondisplay,setsubmitbuttondisplay]=useState(false);
-
-
-  const initialFormData={
-    userType:"Practitioner with Non-Indian/International Degrees",
-    name: "",
-    phoneNumber: "",
-    email: "",
-    password: "",
-    institute: "",
-    qualification:"",
-    speciality:"",
-    registrationNumber:"",
-    countryRegisteredWith:"",
-    registeredCouncil:"",
-    currentJob:"",
-    currentAddress: {
-      lane1: "",
-      lane2: "",
-      pincode: "",
-      state: "",
-      city: "",
-      country:""
-    },
-    residentialAddress: {
-      sameAsCurrent: false,
-      lane1: "",
-      lane2: "",
-      pincode: "",
-      state: "",
-      city:"",
-      country:""
-    },
-    alternatePhoneNumber: ""
-  }
-  
-
-
-  const [formData, setFormData] = useState(initialFormData);
 
   useEffect(() => {
     setFormData(prev => ({
@@ -112,77 +66,6 @@ export default function BHMSStudent(props){
     setAddressCity(event.target.value);
   };
 
-  const handleCheckboxChange = () => {
-    setSameAsCurrent(!sameAsCurrent);
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    console.log(name,value,formData)
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleCurrentAddressChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      currentAddress: {
-        ...prev.currentAddress,
-        [name]: value
-      }
-    }));
-  };
-
-  const handleResidentialAddressChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      residentialAddress: {
-        ...prev.residentialAddress,
-        [name]: value
-      }
-    }));
-  };
-
-  
-  const otp_method = async() => {
-
-    try {
-      const email=formData.email;
-      const response = await axios.post("http://localhost:4000/send-otp", {
-        email,
-      });
-      setsubmitbuttonEnabled(true);
-    } catch (error) {
-      console.log("Failed to send OTP");
-    }
-    
-  };
-
-  const verify_otp=async()=>{
-    try {
-      const email=formData.email;
-      const userEnteredOTP=otp;
-      const response = await axios.post("http://localhost:4000/verify-otp", {
-        email,
-        userEnteredOTP
-      });
-
-      console.log(response)
-      setsubmitbuttondisplay(true);
-    } catch (error) {
-      console.log("Failed to send OTP");
-    }
-  }
-
-
-  const handleSubmit = (e) => {
-    setData(formData);
-    
-  };
   
     return(
       
@@ -199,6 +82,7 @@ export default function BHMSStudent(props){
                   value={formData.name} 
                   required 
                   id="Name" 
+                  readOnly
                   onChange={(e) => handleChange(e)} 
                 />
               </div>
@@ -217,6 +101,7 @@ export default function BHMSStudent(props){
                   id="inputPhoneNumber" required
                   name="phoneNumber"
                   value={formData.phoneNumber}
+                  readOnly
                   onChange={(e)=>handleChange(e)}
                 />
               </div>
@@ -228,50 +113,7 @@ export default function BHMSStudent(props){
               <div className="col-sm-3">
                 <input type="email" className="form-control" name="email" value={formData.email}  id="inputEmail3" onChange={(e)=>handleChange(e)} required/>
               </div>
-              <div className="col-sm-2">
-                <button className="btn btn-info" onClick={otp_method}>Send otp</button>
-              </div>
-              {submitbuttonEnabled && (
-                <div className="col-sm-3"> 
-                  <div className="row">
-                  <label htmlFor="inputEmail3" className="col-sm-3 col-form-label">
-                      OTP
-                    </label>
-                    <div className="col-sm-6">
-                      <input type="text" value={otp} className="form-control" onChange={(e)=>setotp(e.target.value)} required/>
-                    </div>
-                    <div className="col-sm-3">
-                    <button className="btn btn-info" onClick={verify_otp}>verify</button>
-                    </div>
-                  </div>
-                </div>     
-                )}
             </div>
-            <div className="row mb-3">
-        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">
-          Password
-        </label>
-        <div className="col-sm-10">
-          <div className="position-relative">
-            <input
-              type={showPassword ? "text" : "password"}
-              className="form-control"
-              id="inputPassword"
-              name="password"
-              value={formData.password}
-              onChange={(e)=>handleChange(e)}
-              required
-            />
-            <span
-              className="position-absolute top-50 end-0 translate-middle-y"
-              onClick={() => setShowPassword(!showPassword)}
-              style={{ cursor: "pointer", paddingRight: "20px", fontSize: "20px" }}
-            >
-              {showPassword ? <EyeSlash /> : <Eye />}
-            </span>
-          </div>
-        </div>
-      </div>
       <div className="row mb-3">
                 <label htmlFor="qualification" className="col-sm-2 col-form-label">
                     Qualification
@@ -593,7 +435,7 @@ export default function BHMSStudent(props){
                 />
               </div>
             </div>
-            <button type="submit" className="btn btn-dark mb-2" onClick={handleSubmit} disabled={!submitbuttondisplay}>submit</button>
+            <button type="submit" className="btn btn-dark mb-2" onClick={handleupdate} >Update</button>
           </div>
     )
 }

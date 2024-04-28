@@ -33,6 +33,10 @@ import Privacypolicy from './homeCompnents/Privacypolicy';
 import ShippingAndDelivery from './homeCompnents/ShippingPolicy';
 import Footer from './homeCompnents/Footer';
 import ShowOrders from './adminComponents/ShowOrders';
+import LoadingSpinner from './LoadingSpinner';
+import UpdateProfileBhms from './userComponents/UpdateProfileBhms';
+import UpdateProfile from './userComponents/UpdateProfile';
+import ChangePassword from './userComponents/ChangePassword';
 //nishanth
 const UserContext = createContext();
 export const useUser = () => useContext(UserContext);
@@ -50,16 +54,18 @@ function App() {
   const [cart, setCart] = useState([]);
   const [orders, setOrders] = useState([]);
   const [orderData,setOrderData]=useState([])
+  const [isLoading, setIsLoading] = useState(true);
   //nishanth
   useEffect(() => {
     console.log("hello", cookies)
+    console.log(cookies.token)
     const verifyCookie = async () => {
       console.log("j")
-      if (cookies.token != 'undefined') {
+      if (cookies.token != 'undefined' || cookies.token.length!=0) {
         console.log("p")
         try {
           const response = await axios.post(
-            "https://bookbackend-4.onrender.com",
+            "http://localhost:4000/",
             {},
             { withCredentials: true }
           );
@@ -67,18 +73,25 @@ function App() {
           if (response.data.status) {
             console.log(response.data.user)
             setUserData(response.data.user)
+            
 
           }
         } catch (error) {
           console.error("Error making POST app.js request:", error.message);
         }
+        finally{
+          setIsLoading(false); 
+        }
+      }
+      else{
+        setIsLoading(false); 
       }
 
     };
 
     verifyCookie();
 
-  }, [])
+  }, [cookies.token])
   function LogOut() {
     removeCookie("token")
     setUserData({})
@@ -87,15 +100,15 @@ function App() {
     if (userData.userType === "Admin") {
       const getUserData = async () => {
         try {
-          const { data } = await axios.get('https://bookbackend-4.onrender.com/user-data');
+          const { data } = await axios.get('http://localhost:4000/user-data');
           setDatas(data);
 
           //nishanth
-          const response = await axios.get(`https://bookbackend-4.onrender.com/getCart/${userData.email}/${userData.userType}`);
+          const response = await axios.get(`http://localhost:4000/getCart/${userData.email}/${userData.userType}`);
           console.log(response.data);
           setBooks(response.data.allBooks);
           //nishanth
-          const orderDataget=await axios.get(`https://bookbackend-4.onrender.com/getOrders`);
+          const orderDataget=await axios.get(`http://localhost:4000/getOrders`);
           setOrderData(orderDataget.data)
           console.log(orderDataget.data,"get")
           let filteredData = [];
@@ -120,7 +133,7 @@ function App() {
       getUserData();
       const getBooks = async () => {
         try {
-          const booksData = await axios.get('https://bookbackend-4.onrender.com/getBooks');
+          const booksData = await axios.get('http://localhost:4000/getBooks');
           setBooksData(booksData)
         } catch (error) {
           console.error("Error fetching user data:", error);
@@ -132,7 +145,7 @@ function App() {
       const fetchBookData = async () => {
         try {
           console.log(userData);
-          const response = await axios.get(`https://bookbackend-4.onrender.com/getCart/${userData.email}/${userData.userType}`);
+          const response = await axios.get(`http://localhost:4000/getCart/${userData.email}/${userData.userType}`);
           // const response = await axios.get('http://localhost:4000/getbooks');
           console.log(response.data);
           setData(response.data.allBooks);
@@ -147,7 +160,10 @@ function App() {
     }
   }, [userData.userType]);
   console.log(userData, "hii")
-  if (Object.keys(userData).length === 0) {
+  if (isLoading) {
+    return <LoadingSpinner />; // Display loading spinner while authentication is in progress
+  }
+  else if (Object.keys(userData).length === 0) {
     return (
       <>
         <Router>
@@ -211,14 +227,17 @@ function App() {
             <UserNavbar LogOut={LogOut} />
             <Routes>
               <Route path='/' element={<Dashboard />} />
-              <Route path='/SelectedBook' element={<SelectedBook />} />
+              <Route path='/book/:bookId' element={<SelectedBook/>}/>
               <Route path='/cart' element={<Cart />} />
               <Route path='/placeOrder' element={<PlaceOrder />} />
               <Route path='/orders' element={<Orders />} />
+              <Route path='/updateprofile' element={<UpdateProfile />} />
+              <Route path='/changePassword' element={<ChangePassword LogOut={LogOut}/>} />
               <Route path='/RefundPolicy' element={<RefundPolicy />} />
               <Route path='/TermsOfService' element={<TermsofService />} />
               <Route path='/PrivacyPolicy' element={<Privacypolicy />} />
               <Route path='/ShippingPolicy' element={<ShippingAndDelivery />} />
+              
 
             </Routes>
             <Footer/>

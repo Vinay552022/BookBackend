@@ -3,20 +3,22 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './Dashboard.css';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate ,useParams} from 'react-router-dom';
 import Book_Cover1 from '../components/Images/Book_Cover1.jpg';
 import Book_Cover2 from '../components/Images/Book_Cover2.jpg';
 import Book_Cover3 from '../components/Images/Book_Cover3.jpg';
 import { useUser } from '../App';
+import { FaCartShopping } from "react-icons/fa6";
 
 const SelectedBook = () => {
-  const location = useLocation();
   const navigate = useNavigate();
-  const { userData, setUserData, cart, setCart } = useUser();
-  const bookData = location.state.bookData;
+  const { userData, setUserData, data,cart, setCart } = useUser();
   const [count, setCount] = useState(0);
   const [hoveredImage, setHoveredImage] = useState(null);
   const [cartIndex, setCartIndex] = useState(-1);
+  const { bookId } = useParams();
+  console.log(bookId);
+   const bookData = data[bookId];
   function scrollToSection() {
     const section = document.getElementById('sectionId'); // Replace 'sectionId' with the ID of the section you want to scroll to
     if (section) {
@@ -24,7 +26,7 @@ const SelectedBook = () => {
     }
   }
   useEffect(() => {
-    if (location.state && location.state.bookData) {
+    if (bookId!==undefined) {
       const k = userData.cart.findIndex(item => item.bookId === bookData.bookId);
       console.log(k);
       setCartIndex(k);
@@ -42,7 +44,7 @@ const SelectedBook = () => {
     const bookId = bookData.bookId;
 
     try {
-      const response = await axios.put(`https://bookbackend-4.onrender.com/add_to_cart/${bookId}`, {
+      const response = await axios.put(`http://localhost:4000/add_to_cart/${bookId}`, {
         userType,
         email,
         count,
@@ -79,11 +81,6 @@ const SelectedBook = () => {
       console.error(error);
     }
   };
-
-  const goToCart = () => {
-    navigate('/cart');
-  };
-
   const buyNow = async () => {
     add_to_cart();
     bookData.quantity = count;
@@ -111,7 +108,7 @@ const SelectedBook = () => {
         <div className="col-md-5">
           <img
             src={hoveredImage ? hoveredImage : Book_Cover2}
-            className="rounded-start img-fluid img-thumbnail"
+            className="rounded-start img-fluid "
             alt="Book Cover"
           />
           <div className="d-flex justify-content-center">
@@ -144,10 +141,10 @@ const SelectedBook = () => {
         <div className="col-md-7">
           <h2 className="mb-3">{bookData.bookTitle} </h2>
           <div className="row mb-2">
-            <div className="me-3 fs-5"> by {bookData.author}</div>
+            <div className="me-3 fs-5"> <i>by </i><span> {bookData.author}</span> </div>
           </div>
-          <div className="row mb-2">
-            <div className="me-3 col-2 card-text fs-5"><del>800₹</del> {bookData.price}₹</div>
+          <div className=" mb-2 fs-5 card-text">
+            <del>₹800</del> ₹{bookData.price}
           </div>
           <div className="d-flex align-items-center mb-3">
             <div className="me-2 fs-5">Quantity:</div>
@@ -156,15 +153,15 @@ const SelectedBook = () => {
             <button className="btn btn-dark" onClick={incrementCount}>+</button>
           </div>
           <div className="row  mb-3">
-            <div className='col-6 '>
+            <div className='col-6 mx-auto gap-2'>
               {cartIndex === -1 && (
-                <button className="btn btn-dark px-5 " value="Item added to cart successfully" onClick={add_to_cart}>Add to Cart</button>
+                <button className="btn btn-dark" value="Item added to cart successfully" onClick={add_to_cart} style={{"width":"160px"}}><FaCartShopping size={20}/>Add to Cart </button>
               )}
               {cartIndex != -1 && userData.cart[cartIndex].quantity === count && (
-                <button className="btn btn-dark px-5 " onClick={goToCart}>Go to Cart</button>
+                <Link to='/cart' className="btn btn-dark" style={{"width":"160px"}}>Go to Cart</Link>
               )}
               {cartIndex != -1 && userData.cart[cartIndex].quantity !== count && (
-                <button className="btn btn-dark px-5 " value="Cart updated successfully" onClick={add_to_cart}>Update Cart</button>
+                <button className="btn btn-dark " value="Cart updated successfully" style={{"width":"160px"}} onClick={add_to_cart}><FaCartShopping size={20}/>Update Cart</button>
               )}
             </div>
             <div className='col-6'>
@@ -173,12 +170,16 @@ const SelectedBook = () => {
           </div>
           <div>
             <hr />
+          
+
+
+
             <div className="truncate-multiline" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
               {bookData.description}
             </div>
             <button className="btn text-decoration-underline text-primary" onClick={scrollToSection}>Read More</button>
             <hr />
-            <div id="carouselExample" className="carousel slide border border-2" style={{ "height": "80px" }}>
+            <div id="carouselExample" className="carousel slide border " style={{ "height": "80px" }}>
               <div className="carousel-inner p-3">
                 <div className="carousel-item active p-1">
                   <div className="row">

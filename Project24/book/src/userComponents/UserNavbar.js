@@ -2,6 +2,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaCartShopping } from "react-icons/fa6";
 import logo from '../components/Images/logo.png'
 import { useUser } from '../App';
+import { FaUser } from "react-icons/fa";
+import { FaLock } from "react-icons/fa";
+import './UserNavbar.css'
+import { ImExit } from "react-icons/im";
+
 export default function UserNavbar(props) {
   const navigate = useNavigate();
   const { userData } = useUser();
@@ -19,7 +24,7 @@ export default function UserNavbar(props) {
       <nav className="navbar border-bottom border-body navbar-expand-lg" data-bs-theme="white">
         <div className="container-fluid">
         <div className="d-flex justify-content-center align-items-center">
-        <a className="navbar-brand" href="#"><img  className="img-fluid "  style={{ width: "30px" }} src={logo}/></a><h5 className="mt-2 ms-0" style={h1Style}>HAELAN HOMEOPATHY</h5>
+        <Link className="navbar-brand" to={"/"}><img  className="img-fluid "  style={{ width: "30px" }} src={logo}/></Link><h5 className="mt-2 ms-0" style={h1Style}>HAELAN HOMEOPATHY</h5>
         </div>
           <button
             className="navbar-toggler"
@@ -53,27 +58,22 @@ export default function UserNavbar(props) {
                   Orders
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link
-                  className="nav-link"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    LogOut();
-                    navigate("/");
-                  }}
-                >
-                  Logout
-                </Link>
+              <li  className="nav-item  dropdown">
+    <Link className="nav-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      My Account
+    </Link>
+    <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <li><Link className="nav-link" to='/updateprofile'><FaUser size={20}/> Profile</Link></li>
+      <li><Link className="nav-link" to='/changePassword'><FaLock size={20}/> Login & security</Link></li>
+      <li><Link className="nav-link" 
+            onClick={(e) => {
+              e.preventDefault();
+                  LogOut();
+                  navigate("/");
+            }}><ImExit size={20}/> Logout</Link></li>
+    </ul>
               </li>
             </ul>
-            
-            {/* <div className="d-flex ms-auto">
-              <button
-                className="btn  btn-outline-light"
-                style={{ width: "150px" }}>
-                Buy
-              </button>
-            </div> */}
           </div>
         </div>
       </nav>

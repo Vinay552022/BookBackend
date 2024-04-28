@@ -5,7 +5,7 @@ const app = express();
 require("dotenv").config()
 const mongoose=require("mongoose")
 const {MONGO_URL,PORT}=process.env
-let {Login,userVerification}=require("./Controllers/AuthController.js")
+let {Login,userVerification, changePassword}=require("./Controllers/AuthController.js")
 let {userRegistration}=require('./Controllers/Registration.js')
 let {getUserDataByType}=require('./Controllers/userController.js')
 let {registerAdmin}=require('./Controllers/AdminRegister.js')
@@ -16,15 +16,16 @@ let {getBooks}=require('./Controllers/AdminController.js')
 let {addCartController}=require('./Controllers/addCartController.js')
 let {deleteCartController}=require('./Controllers/deleteCartController.js');
 const { getCartController } = require('./Controllers/getCartController.js');
-const { placeOrderController } = require('./Controllers/placeOrderController.js');
+const { placeOrderController, paymentStatus } = require('./Controllers/placeOrderController.js');
 const { sendOtp, verifyOtp } = require('./Controllers/otpController.js');
 const {getOrders}=require('./Controllers/AdminController.js')
-const {buyBooks}=require('./Controllers/AdminController.js')
+const {buyBooks}=require('./Controllers/AdminController.js');
+const { updateProfile } = require('./Controllers/updateProfile.js');
 //mongo connection
 mongoose.connect(MONGO_URL,{dbName:'Admins'})
 .then(()=>console.log("db connection successfull"))
 .catch((err)=>console.log(err.message))
-const allowedOrigins = ['https://www.haelanhomeopathy.com', 'https://haelanhomeopathy.com']; // Add additional origins as needed
+const allowedOrigins = ['http://localhost:3000']; // Add additional origins as needed
 
 app.use((req, res, next) => {
   const origin = req.headers.origin;
@@ -47,6 +48,8 @@ app.listen(PORT,()=>{
 app.post("/login",Login)
 app.post("/",userVerification)
 app.post("/registerUser",userRegistration)
+app.post("/updateProfile",updateProfile)
+app.post("/changePassword",changePassword)
 app.get('/user-data', getUserDataByType);
 app.post('/registerAdmin',registerAdmin)
 app.post('/userRegistrationByAdmin',userRegistrationByAdmin)
@@ -66,3 +69,6 @@ app.post('/verify-otp',verifyOtp);
 
 app.get('/getOrders',getOrders)
 app.post('/buyBooks',buyBooks)
+
+
+app.post("/status", paymentStatus);

@@ -1,46 +1,15 @@
 import {React,useState,useEffect} from "react";
-import { Eye, EyeSlash } from "react-bootstrap-icons";
-import axios from 'axios';
-export default function BHMSStudent(props){
-  const { setData } = props;
-  const [selectedState, setSelectedState] = useState('');
-  const [selectedDistrict, setSelectedDistrict] = useState('');
-  const [residentialState, setResidentialState] = useState('');
-  const [residentialDistrict, setResidentialDistrict] = useState('');
-  const [sameAsCurrent, setSameAsCurrent] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [submitbuttonEnabled, setsubmitbuttonEnabled] = useState(false);
-  const [otp,setotp]=useState();
-  const [submitbuttondisplay,setsubmitbuttondisplay]=useState(false);
 
-  const [formData, setFormData] = useState({
-    userType:"BHMSstudent",
-    name: "",
-    phoneNumber: "",
-    email: "",
-    password: "",
-    university: "",
-    college: "",
-    currentYear: "",
-    currentAddress: {
-      lane1: "",
-      lane2: "",
-      pincode: "",
-      state: "",
-      district: ""
-    },
-    residentialAddress: {
-      sameAsCurrent: false,
-      lane1: "",
-      lane2: "",
-      pincode: "",
-      state: "",
-      district: ""
-    },
-    alternatePhoneNumber: "",
-    opinion: ""
-  });
+import { useUser } from '../App';
 
+export default function UpdateProfileBhms({formData,setFormData,handleStateChange,handleupdate,handleDistrictChange,handleCheckboxChange,handleChange,handleCurrentAddressChange,handleResidentialAddressChange,sameAsCurrent}){
+  const { userData,setUserData } = useUser();
+  const [selectedState, setSelectedState] = useState(userData.currentAddress.state);
+  const [selectedDistrict, setSelectedDistrict] = useState(userData.currentAddress.district);
+  const [residentialState, setResidentialState] = useState(userData.residentialAddress.state);
+  const [residentialDistrict, setResidentialDistrict] = useState(userData.residentialAddress.district);
+
+  console.log(formData);
   useEffect(() => {
     setFormData(prev => ({
       ...prev,
@@ -72,83 +41,6 @@ export default function BHMSStudent(props){
       }));
     }
   }, [sameAsCurrent, residentialState, residentialDistrict,selectedState,selectedDistrict]);
-
-  const handleStateChange = (e, setAddressState, setAddressDistrict) => {
-    setAddressState(e.target.value);
-    setAddressDistrict('');
-  };
-
-  const handleDistrictChange = (e, setAddressDistrict) => {
-    setAddressDistrict(e.target.value);
-  };
-
-  const handleCheckboxChange = () => {
-    setSameAsCurrent(!sameAsCurrent);
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleCurrentAddressChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      currentAddress: {
-        ...prev.currentAddress,
-        [name]: value
-      }
-    }));
-  };
-
-  const handleResidentialAddressChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      residentialAddress: {
-        ...prev.residentialAddress,
-        [name]: value
-      }
-    }));
-  };
-
-  const otp_method = async() => {
-
-    try {
-      const email=formData.email;
-      const response = await axios.post("http://localhost:4000/send-otp", {
-        email,
-      });
-      setsubmitbuttonEnabled(true);
-    } catch (error) {
-      console.log("Failed to send OTP");
-    }
-    
-  };
-
-  const verify_otp=async()=>{
-    try {
-      const email=formData.email;
-      const userEnteredOTP=otp;
-      const response = await axios.post("http://localhost:4000/verify-otp", {
-        email,
-        userEnteredOTP
-      });
-
-      console.log(response)
-      setsubmitbuttondisplay(true);
-    } catch (error) {
-      console.log("Failed to send OTP");
-    }
-  }
-
-  const handleSubmit = (e) => {
-    setData(formData);
-  };
   const statesAndDistricts ={  
     "states":[  
        {  
@@ -1052,7 +944,7 @@ export default function BHMSStudent(props){
  }
     return(
       
-        <div className="user-section m-3" >
+        <div className="user-section m-3 container" >
             <div className="row mb-3">
               <label htmlFor="Name" className="col-sm-2 col-form-label">
                 Name
@@ -1064,6 +956,7 @@ export default function BHMSStudent(props){
                   name="name" 
                   value={formData.name} 
                   required 
+                  readOnly
                   id="Name" 
                   onChange={(e) => handleChange(e)} 
                 />
@@ -1084,6 +977,7 @@ export default function BHMSStudent(props){
                   name="phoneNumber"
                   value={formData.phoneNumber}
                   onChange={(e)=>handleChange(e)}
+                  readOnly
                 />
               </div>
             </div>
@@ -1092,52 +986,12 @@ export default function BHMSStudent(props){
                 Email
               </label>
               <div className="col-sm-3">
-                <input type="email" className="form-control" name="email" value={formData.email}  id="inputEmail3" onChange={(e)=>handleChange(e)} required/>
+                <input type="email" className="form-control" name="email" value={formData.email}  id="inputEmail3" onChange={(e)=>handleChange(e)} required readOnly/>
               </div>
-              <div className="col-sm-2">
+              {/* <div className="col-sm-2">
                 <button className="btn btn-info" onClick={otp_method}>Send otp</button>
-              </div>
-              {submitbuttonEnabled && (
-                <div className="col-sm-3"> 
-                  <div className="row">
-                  <label htmlFor="inputEmail3" className="col-sm-3 col-form-label">
-                      OTP
-                    </label>
-                    <div className="col-sm-6">
-                      <input type="text" value={otp} className="form-control" onChange={(e)=>setotp(e.target.value)} required/>
-                    </div>
-                    <div className="col-sm-3">
-                    <button className="btn btn-info" onClick={verify_otp}>verify</button>
-                    </div>
-                  </div>
-                </div>     
-                )}
+              </div> */}
             </div>
-            <div className="row mb-3">
-        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">
-          Password
-        </label>
-        <div className="col-sm-10">
-          <div className="position-relative">
-            <input
-              type={showPassword ? "text" : "password"}
-              className="form-control"
-              id="inputPassword"
-              name="password"
-              value={formData.password}
-              onChange={(e)=>handleChange(e)}
-              required
-            />
-            <span
-              className="position-absolute top-50 end-0 translate-middle-y"
-              onClick={() => setShowPassword(!showPassword)}
-              style={{ cursor: "pointer", paddingRight: "20px", fontSize: "20px" }}
-            >
-              {showPassword ? <EyeSlash /> : <Eye />}
-            </span>
-          </div>
-        </div>
-      </div>
             <div className="row mb-3">
               <label htmlFor="inputUniversity" className="col-sm-2 col-form-label">
                 University
@@ -1345,20 +1199,9 @@ export default function BHMSStudent(props){
                   onChange={(e)=>handleChange(e)}
                 />
               </div>
-              <div className="row mb-3">
-        <label htmlFor="willBuyOption" className="col-sm-2 col-form-label">Will Buy Option</label>
-        <div className="col-sm-10">
-          <select className="form-control" id="willBuyOption" required name="opinion" value={formData.opinion} onChange={handleChange}>
-            <option value="">Select Option</option>
-            <option value="Will Buy">Will Buy</option>
-            <option value="Won't Buy">Won't Buy</option>
-          </select>
-        </div>
-      </div>
-
             </div>
             
-            <button type="submit" className="btn btn-dark mb-2" onClick={handleSubmit} disabled={!submitbuttondisplay}>submit</button>
+            <button type="submit" className="btn btn-dark mb-2" onClick={handleupdate} >Update</button>
           </div>
     )
 }

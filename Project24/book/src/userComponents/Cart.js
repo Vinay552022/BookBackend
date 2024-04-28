@@ -34,7 +34,7 @@ export default function Cart() {
     const count = item;
 
     try {
-      const response = await axios.put(`https://bookbackend-4.onrender.com/add_to_cart/${bookId}`, {
+      const response = await axios.put(`http://localhost:4000/add_to_cart/${bookId}`, {
         userType,
         email,
         count,
@@ -66,7 +66,7 @@ export default function Cart() {
     try {
       const userType = userData.userType;
       const email = userData.email;
-      const response = await axios.delete(`https://bookbackend-4.onrender.com/delete_cart/${email}/${userType}/${card.bookId}`);
+      const response = await axios.delete(`http://localhost:4000/delete_cart/${email}/${userType}/${card.bookId}`);
 
       const updatedCart = [...cart];
       const item_price = cart[index].quantity * cart[index].price;
@@ -125,9 +125,9 @@ export default function Cart() {
                   <div className="col-md-8 mt-5">
                     <div className="card-body">
                       <h3 className="card-title">{card.bookTitle}</h3>
-                      <div className='card-text fs-5'>{card.author}</div>
-                      <div className='card-text'><b className="fs-4">{'\u20B9'}</b>{card.price}</div>
-                      <div className='card-text'>{card.bookId}</div>
+                      <div className='card-text '><i>by</i> <span className='fs-5'>{card.author}</span></div>
+                      <div className='card-text'><del>₹800</del><b className="fs-4"> {'\u20B9'}</b>{card.price}</div>
+                      <div className='card-text'><b>ISBN 13 : </b> {card.bookId}</div>
                       <div className="mb-3 row">
                         <label htmlFor="staticEmail" className="col-md-2 form-label"><b>Quantity</b></label>
                         <div className="col-md-3">
